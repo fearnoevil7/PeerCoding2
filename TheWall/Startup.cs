@@ -14,23 +14,24 @@ namespace TheWall
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
         public Startup(IConfiguration configuration, IHostEnvironment env)
         {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<MyContext>(options => options.UseSqlServer(Configuration["DBInfo:ConnectionString"]));
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
             });
-            services.AddDbContext<MyContext>(options => options.UseSqlServer(Configuration["DbInfo:ConnectionString"]));
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -17,10 +17,10 @@ namespace TheWall.Controllers
     public class WeatherForecastController : ControllerBase
     {
         private MyContext dbContext;
-        public WeatherForecastController(MyContext context)
-        {
-            dbContext = context;
-        }
+        //public WeatherForecastController(MyContext context)
+        //{
+        //    dbContext = context;
+        //}
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -28,8 +28,9 @@ namespace TheWall.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, MyContext context)
         {
+            dbContext = context;
             _logger = logger;
         }
 
@@ -46,7 +47,7 @@ namespace TheWall.Controllers
             .ToArray();
         }
         [HttpPost]
-        [Route("/create")]
+        [Route("create")]
         public string Create(User user)
         {
             Console.WriteLine(user.FirstName);
@@ -58,10 +59,11 @@ namespace TheWall.Controllers
             Console.WriteLine(user.ConfirmPassword);
             if (ModelState.IsValid)
             {
-                if(dbContext.Users.Any(user1 => user1.Email == user.Email))
-                {
-                    ModelState.AddModelError("Email", "Email already in use!");
-                }
+                Console.WriteLine("Modelstate has passed validation");
+                //if(dbContext.Users.Any(user1 => user1.Email == user.Email))
+                //{
+                //    ModelState.AddModelError("Email", "Email already in use!");
+                //}
                 PasswordHasher<User> Hasher = new PasswordHasher<User>();
                 User newUser = new User()
                 {
@@ -74,10 +76,11 @@ namespace TheWall.Controllers
                 dbContext.SaveChanges();
                 var message = new {Response = "Message", Message = "Success!"};
 
-                return JsonConvert.SerializeObject(newUser);
+                return JsonConvert.SerializeObject(message);
             }
             else
             {
+                Console.WriteLine("*******ModelState Validation has failed");
                 var error = new { Message = "Error", Error = "Model state validation has failed!" };
                 return JsonConvert.SerializeObject(error);
             }

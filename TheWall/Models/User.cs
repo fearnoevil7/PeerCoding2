@@ -5,7 +5,7 @@ namespace TheWall.Models
 {
     public class User
     {
-        [Key]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
         [Required]
         [MinLength(2, ErrorMessage = "First name must be atleast 2 characters long.")]
