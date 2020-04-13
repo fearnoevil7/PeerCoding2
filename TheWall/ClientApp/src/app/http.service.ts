@@ -10,6 +10,6 @@ export class HttpService {
   constructor(private _http: HttpClient) { }
   create(newUser) {
     console.log("http service user", newUser);
-    return this._http.post("weatherforecast/create", newUser);
+    return this._http.post("home/user/create", newUser);
   }
 }
