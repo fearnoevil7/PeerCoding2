@@ -1,14 +1,17 @@
 ﻿<Properties StartupConfiguration="{D19A4481-6847-414E-9311-A76E24B93DF3}|Default">
   <MonoDevelop.Ide.Workbench ActiveDocument="TheWall/Startup.cs">
     <Files>
-      <File FileName="TheWall/ClientApp/src/app/registration/registration.component.ts" Line="1" Column="1" />
-      <File FileName="TheWall/Controllers/WeatherForecastController.cs" Line="62" Column="68" />
-      <File FileName="TheWall/Models/User.cs" Line="7" Column="6" />
+      <File FileName="TheWall/Controllers/WeatherForecastController.cs" Line="72" Column="39" />
+      <File FileName="TheWall/Models/User.cs" Line="6" Column="22" />
       <File FileName="TheWall/Pages/_ViewImports.cshtml" Line="1" Column="1" />
-      <File FileName="TheWall/Models/Context.cs" Line="14" Column="37" />
-      <File FileName="TheWall/appsettings.json" Line="1" Column="1" />
-      <File FileName="TheWall/Startup.cs" Line="1" Column="1" />
+      <File FileName="TheWall/Models/Context.cs" Line="16" Column="6" />
+      <File FileName="TheWall/appsettings.json" Line="13" Column="82" />
       <File FileName="TheWall/ClientApp/src/app/app.module.ts" Line="1" Column="1" />
+      <File FileName="TheWall/ClientApp/src/app/app.component.html" Line="1" Column="1" />
+      <File FileName="TheWall/ClientApp/src/app/registration/registration.component.html" Line="13" Column="39" />
+      <File FileName="TheWall/ClientApp/src/app/registration/registration.component.ts" Line="21" Column="42" />
+      <File FileName="TheWall/ClientApp/src/app/http.service.ts" Line="1" Column="1" />
+      <File FileName="TheWall/Startup.cs" Line="20" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">

@@ -60,10 +60,10 @@ namespace TheWall.Controllers
             if (ModelState.IsValid)
             {
                 Console.WriteLine("Modelstate has passed validation");
-                //if(dbContext.Users.Any(user1 => user1.Email == user.Email))
-                //{
-                //    ModelState.AddModelError("Email", "Email already in use!");
-                //}
+                if (dbContext.Users.Any(user1 => user1.Email == user.Email))
+                {
+                    ModelState.AddModelError("Email", "Email already in use!");
+                }
                 PasswordHasher<User> Hasher = new PasswordHasher<User>();
                 User newUser = new User()
                 {
