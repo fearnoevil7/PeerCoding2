@@ -1,0 +1,10 @@
+<p>edit works!</p>
+<button (click)="logOut()" value="Signout">Signout</button>
+{{user || json}}
+<form (submit)="sendToUpdate()">
+    <span>First Name: </span><input type="text" name="firstName" [value]="first_Name" [(ngModel)]="updateUser.firstName" />
+    <span>Last Name: </span><input type="text" name="firstName" [value]="last_Name" [(ngModel)]="updateUser.lastName" />
+    <span>Email: </span><input type="text" name="email" [value]="_email" [(ngModel)]="updateUser.email" />
+    <span>Password: </span><input type="text" name="password" [(ngModel)]="updateUser.password" />
+    <button type="submit" class="btn btn-success">Update User</button>
+</form>

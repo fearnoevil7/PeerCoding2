@@ -8,6 +8,12 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Configuration;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using TheWall.Models;
 
 namespace TheWall.Controllers
@@ -17,10 +23,12 @@ namespace TheWall.Controllers
     public class HomeController : Controller
     {
         private MyContext dbContext;
+        private IConfiguration _config;
 
-        public HomeController(MyContext context)
+        public HomeController(MyContext context, IConfiguration config)
         {
             dbContext = context;
+            _config = config;
         }
         [HttpPost]
         [Route("user/create")]
@@ -60,6 +68,79 @@ namespace TheWall.Controllers
                 var error = new { Message = "Error", Error = "Model state validation has failed!" };
                 return JsonConvert.SerializeObject(error);
             }
+        }
+        
+        [HttpPost]
+        [Route("session/create")]
+        public string SignIn(LoginUser usersubmission)
+        {
+            Console.WriteLine("*******Login back end!!!!!!!*******");
+            if (ModelState.IsValid)
+            {
+                var userInDB = dbContext.Users.FirstOrDefault(u => u.Email == usersubmission.email);
+                if (userInDB == null)
+                {
+                    ModelState.AddModelError("Email", "Invalid email");
+                    Console.WriteLine("******* Email not registered in database");
+                    var error = new { Message = "Error", Error = "Sorry, I dont recognize your email!" };
+                    return JsonConvert.SerializeObject(error);
+                }
+                var Hasher = new PasswordHasher<LoginUser>();
+                var result = Hasher.VerifyHashedPassword(usersubmission, userInDB.Password, usersubmission.password);
+                if (result == 0)
+                {
+                    ModelState.AddModelError("Password", "Invalid password!");
+                    Console.WriteLine("******* Password does not match any passwords in database");
+                    var error = new { Message = "Error", Error = "Sorry, the inputed password is invalid!" };
+                    return JsonConvert.SerializeObject(error);
+                }
+                //int id = userInDB.UserId;
+                var tokenstring = GenerateJsonWebToken(userInDB);
+                var Token = new { Token = tokenstring };
+                return JsonConvert.SerializeObject(Token);
+            }
+            else
+            {
+                Console.WriteLine("*******ModelState Validation has failed");
+                var error = new { Message = "Error", Error = "Model state validation has failed!" };
+                return JsonConvert.SerializeObject(error);
+            }
+        }
+
+        private string GenerateJsonWebToken(User user)
+        {
+            List<Claim> claims = new List<Claim>
+
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
+                new Claim(ClaimTypes.Email, user.Email),
+            };
+
+            SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
+
+            SigningCredentials creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+
+            SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.Now.AddDays(1),
+                SigningCredentials = creds,
+            };
+
+            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+            SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
+
+            return tokenHandler.WriteToken(token);
+
+        }
+        [Authorize]
+        [HttpGet]
+        [Route("user/{userid}")]
+        public string Show(int userid)
+        {
+            var userInDB = dbContext.Users.FirstOrDefault(u => u.UserId == userid);
+            var user = new { User = userInDB };
+            return JsonConvert.SerializeObject(user);
         }
     }
 }

@@ -1,17 +1,26 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-
+import { JwtModule } from '@auth0/angular-jwt';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { LoginComponent } from './login/login.component';
 import { from } from 'rxjs';
 import { HttpService } from './http.service';
+import { AuthGuard } from './auth-guard.service';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { EditComponent } from './edit/edit.component';
+//import { CanActivate } from '@angular/router';
+ 
+export function tokenGrabber() {
+  return localStorage.getItem("token");
+}
 
 @NgModule({
   declarations: [
@@ -21,6 +30,9 @@ import { HttpService } from './http.service';
     CounterComponent,
     FetchDataComponent,
     RegistrationComponent,
+    LoginComponent,
+    DashboardComponent,
+    EditComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -31,9 +43,22 @@ import { HttpService } from './http.service';
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'registration', component: RegistrationComponent },
-    ])
+      { path: 'login', component: LoginComponent },
+      { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] }, // method of authenticating with webtoken using Auth-Guard.service.ts
+      { path: 'edit', component: EditComponent, canActivate: [AuthGuard] },
+    ]),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGrabber,
+        whitelistedDomains: ["localhost:5001"],
+        blacklistedRoutes: []
+      }
+    })
   ],
-  providers: [HttpService],
+  providers: [
+    HttpService,
+    AuthGuard,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
