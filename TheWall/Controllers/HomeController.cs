@@ -47,6 +47,8 @@ namespace TheWall.Controllers
                 if (dbContext.Users.Any(user1 => user1.Email == user.Email))
                 {
                     ModelState.AddModelError("Email", "Email already in use!");
+                    var error = new { Message = "Error", Error = "Email already in use!" };
+                    return JsonConvert.SerializeObject(error);
                 }
                 PasswordHasher<User> Hasher = new PasswordHasher<User>();
                 User newUser = new User()
@@ -142,5 +144,82 @@ namespace TheWall.Controllers
             var user = new { User = userInDB };
             return JsonConvert.SerializeObject(user);
         }
+
+        [Authorize]
+        [HttpPost]
+        [Route("update/{userid}")]
+        public string Update(UpdatedUser user, int userid)
+        {
+            Console.WriteLine("*******!!!!!!!!********!!!!!!!!");
+            if(ModelState.IsValid)
+            {
+                PasswordHasher <User> Hasher = new PasswordHasher<User>();
+                User userInDB = dbContext.Users.FirstOrDefault(u => u.UserId == userid);
+                userInDB.FirstName = user.firstName;
+                userInDB.LastName = user.lastName;
+                userInDB.Email = user.email;
+                userInDB.Password = Hasher.HashPassword(userInDB, user.password);
+                dbContext.SaveChanges();
+                var message = new { message = "Successfully updated user" };
+                return JsonConvert.SerializeObject(message);
+            }
+            else
+            {
+                var error = new { error = "Error modelstate is not valid." };
+                return JsonConvert.SerializeObject(error);
+            }
+        }
+
+        [Authorize]
+        [HttpGet]
+        [Route("delete/{userId}")]
+        public string Destroy(int userId)
+        {
+            User selectedUser = dbContext.Users.FirstOrDefault(u => u.UserId == userId);
+            dbContext.Users.Remove(selectedUser);
+            dbContext.SaveChanges();
+            var notification = new { message = "User successfully deleted!" };
+            return JsonConvert.SerializeObject(notification);
+        }
+
+        [Authorize]
+        [HttpGet]
+        [Route("users")]
+        public string Index()
+        {
+            List<User> allUsers = dbContext.Users.ToList();
+            var Users = new { Users = allUsers };
+            return JsonConvert.SerializeObject(Users);
+        }
+
+
+        //[HttpPost]
+        //[Route("product/create/{userid}")]
+        //public string CreateProduct(Product product, int userid)
+        //{
+        //    Console.WriteLine("TEST!!!!!!!");
+        //    if (ModelState.IsValid)
+        //    {
+
+        //        Product newProduct = new Product()
+        //        {
+        //            Name = product.Name,
+        //            Quantity = product.Quantity,
+        //            Description = product.Description,
+        //            UserId = userid,
+        //        };
+        //        dbContext.Products.Add(newProduct);
+        //        dbContext.SaveChanges();
+        //        User vendor1 = dbContext.Users.FirstOrDefault(u => u.UserId == userid);
+        //        var message = new { message = "Product successfully created" };
+        //        return JsonConvert.SerializeObject(message);
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine("******* Modelstate is not valid");
+        //        var error = new { Message = "Error", Error = "Modelstate is not valid" };
+        //        return JsonConvert.SerializeObject(error);
+        //    }
+        //}
     }
 }

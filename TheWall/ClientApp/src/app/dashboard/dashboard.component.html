@@ -1,3 +1,27 @@
-<p>dashboard works!</p>
-<button (click)="logOut()" value="Signout">Signout</button>
-<a [routerLink]="['/edit']" ><u>Edit Profile</u></a>
+<html>
+  <head>
+
+  </head>
+  <body>
+      <a (click)="logOut()"><u>Signout</u></a>
+      <a [routerLink]="['/edit']"><u>Edit Profile</u></a>
+      <a [routerLink]="['/products']"><u>Sell Products</u></a>
+
+      <table>
+          <thead>
+              <tr>
+                  <th>Customer Name</th>
+                  <th>Email</th>
+                  <th>Action</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let user of users">
+                  <td>{{user.FirstName}} {{user.LastName}}</td>
+                  <td>{{user.Email}}</td>
+                  <td><button type="submit" value="remove" (click)="Destroy(user.UserId)">Delete</button></td>
+              </tr>
+          </tbody>
+      </table>
+  </body>
+</html>

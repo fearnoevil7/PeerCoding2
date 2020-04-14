@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
 namespace TheWall.Models
 {
     public class User
@@ -26,5 +27,8 @@ namespace TheWall.Models
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
+
+        List<Order> ListOfOrders { get; set; }
+        List<Product> ProductInventory { get; set; }
     }
 }

@@ -4,17 +4,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
-  selector: 'app-edit',
-  templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.css']
+  selector: 'app-product',
+  templateUrl: './product.component.html',
+  styleUrls: ['./product.component.css']
 })
-export class EditComponent implements OnInit {
+export class ProductComponent implements OnInit {
   id: {};
-  @Input() user: any;
-  UserToUpdate: {};
-  first_Name: string;
-  last_Name: string;
-  _email: string;
+  newProduct: any;
+  userid: number;
+  products: any;
 
   constructor(
     private _httpService: HttpService,
@@ -25,13 +23,15 @@ export class EditComponent implements OnInit {
 
   ngOnInit() {
     this.isUserAuthenticated();
-    this.showUser();
-    this.UserToUpdate = { firstName: "", lastName: "", email: "", password: "" };
+    this.getProductsFromService();
+    this.newProduct = { Name: "", Quantity: null, Description: "", UserId: this.userid };
   }
+
   isUserAuthenticated() {
     let token: string = localStorage.getItem("token");
     if (token && !this.jwtHelper.isTokenExpired(token)) {
       this.id = { id: this.jwtHelper.decodeToken(token).nameid };
+      this.userid = parseInt(this.jwtHelper.decodeToken(token).nameid, 10);
       console.log("*******!!!!!!!!********!!!!!!!!", this.id);
       console.log("*******!!!!!!!!********!!!!!!!!", this.jwtHelper.decodeToken(token));
       return true;
@@ -45,25 +45,19 @@ export class EditComponent implements OnInit {
     this._route.navigate([""]);
   }
 
-  showUser() {
-    console.log("*******showUser id test", this.id);
-    let observable = this._httpService.getUser(this.id['id']);
+  sendToCreate() {
+    let observable = this._httpService.createProduct(this.newProduct, this.id['id']);
     observable.subscribe(data => {
-      this.user = data['User'];
-      console.log("Got the selected user", this.user);
-      console.log("Got the selected user's email", this.user['Email']);
-      this.first_Name = this.user['FirstName'];
-      this.last_Name = this.user['LastName'];
-      this._email = this.user['Email'];
+      console.log("Product successfuly created!", data);
+      this.newProduct = { Name: "", Quantity: null, Description: "", UserId: this.userid };
     })
   }
 
-  sendToUpdate() {
-    console.log("Edit component!", this.UserToUpdate);
-    let observable = this._httpService.updateUser(this.id['id'], this.UserToUpdate);
+  getProductsFromService() {
+    let observable = this._httpService.getProducts();
     observable.subscribe(data => {
-      console.log(data);
-      this._route.navigate(["edit"]);
+      this.products = data['Products'];
+      console.log("Got our products from service!", this.products);
     })
   }
 

@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
     })
   }
   goToDashboard() {
-    this._route.navigate(["dashboard"]);
+    this._route.navigate(["customers"]);
   }
 
 }

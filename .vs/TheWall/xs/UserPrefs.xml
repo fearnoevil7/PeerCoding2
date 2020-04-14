@@ -1,16 +1,19 @@
 ﻿<Properties StartupConfiguration="{D19A4481-6847-414E-9311-A76E24B93DF3}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="TheWall/Models/UpdatedUser.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="TheWall/ClientApp/src/app/product/product.component.html">
     <Files>
-      <File FileName="TheWall/ClientApp/src/app/login/login.component.ts" Line="33" Column="4" />
-      <File FileName="TheWall/ClientApp/src/app/app.module.ts" Line="48" Column="76" />
-      <File FileName="TheWall/ClientApp/src/app/dashboard/dashboard.component.ts" Line="27" Column="7" />
-      <File FileName="TheWall/ClientApp/src/app/home/home.component.ts" Line="8" Column="29" />
-      <File FileName="TheWall/ClientApp/src/app/dashboard/dashboard.component.html" Line="2" Column="1" />
-      <File FileName="TheWall/ClientApp/src/app/edit/edit.component.ts" Line="42" Column="1" />
-      <File FileName="TheWall/ClientApp/src/app/edit/edit.component.html" Line="6" Column="22" />
-      <File FileName="TheWall/Controllers/HomeController.cs" Line="142" Column="54" />
-      <File FileName="TheWall/ClientApp/src/app/http.service.ts" Line="23" Column="32" />
-      <File FileName="TheWall/Models/UpdatedUser.cs" Line="2" Column="14" />
+      <File FileName="TheWall/Controllers/ProductController.cs" Line="71" Column="58" />
+      <File FileName="TheWall/Controllers/WeatherForecastController.cs" Line="5" Column="28" />
+      <File FileName="TheWall/Controllers/HomeController.cs" Line="191" Column="50" />
+      <File FileName="TheWall/ClientApp/src/app/http.service.ts" Line="45" Column="47" />
+      <File FileName="TheWall/ClientApp/src/app/product/product.component.ts" Line="26" Column="35" />
+      <File FileName="TheWall/ClientApp/src/app/registration/registration.component.ts" Line="1" Column="1" />
+      <File FileName="TheWall/Models/Product.cs" Line="18" Column="19" />
+      <File FileName="TheWall/Models/User.cs" Line="32" Column="23" />
+      <File FileName="TheWall/ClientApp/src/app/product/product.component.html" Line="11" Column="6" />
+      <File FileName="TheWall/Models/Order.cs" Line="22" Column="43" />
+      <File FileName="TheWall/ClientApp/src/app/edit/edit.component.ts" Line="1" Column="1" />
+      <File FileName="TheWall/Models/Context.cs" Line="16" Column="40" />
+      <File FileName="TheWall/ClientApp/src/app/dashboard/dashboard.component.html" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -20,18 +23,23 @@
               <Node name="ClientApp" expanded="True">
                 <Node name="src" expanded="True">
                   <Node name="app" expanded="True">
+                    <Node name="dashboard" expanded="True">
+                      <Node name="dashboard.component.html" selected="True" />
+                    </Node>
                     <Node name="edit" expanded="True" />
+                    <Node name="product" expanded="True" />
                   </Node>
                 </Node>
               </Node>
               <Node name="Controllers" expanded="True" />
-              <Node name="Models" expanded="True">
-                <Node name="LoginUser.cs" selected="True" />
-              </Node>
+              <Node name="Models" expanded="True" />
               <Node name="appsettings.json" expanded="True" />
             </Node>
           </Node>
         </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
