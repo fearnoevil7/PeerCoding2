@@ -36,26 +36,28 @@ namespace TheWall.Controllers
             Console.WriteLine("Products JSON");
             Console.WriteLine(order.Products);
             Console.WriteLine("Products quantity");
-            Console.WriteLine(order.Quantity);
             Console.WriteLine("TEST!!!!!!!");
+            User user = dbContext.Users.FirstOrDefault(u => u.UserId == order.UserId);
             if (ModelState.IsValid)
             {
-                List<object> Products = new List<object>();
-               object products = JsonConvert.DeserializeObject<object>(order.Products);
+                //List<object> Products = new List<object>();
+               object products = JsonConvert.DeserializeObject(order.Products);
+                Console.WriteLine("!!!!!!!%%%%%%%%products about to placed in orders! deserialized!!!!!!!!!");
                 Console.WriteLine(products);
-                Console.WriteLine("products deserialized", products);
-               var proudcts1 = new { Products = order.Products, Test = order.Products };
-               var test = JsonConvert.SerializeObject(proudcts1);
+                Console.WriteLine("!!!!!!!%%%%%%%%products about to placed in orders! deserialized!!!!!!!!!");
+                //var proudcts1 = new { Products = order.Products, Test = order.Products };
+                //var test = JsonConvert.SerializeObject(proudcts1);
 
                 Order newOrder = new Order()
                 {
                     UserId = order.UserId,
-                    Products = test,
-                    Quantity = order.Quantity,
+                    Products = order.Products,
                 };
                 dbContext.Orders.Add(newOrder);
+                Dictionary<int, string> CustomerCart = new Dictionary<int, string>();
+                var Cart = user.ShoppingCart = JsonConvert.SerializeObject(CustomerCart);
                 dbContext.SaveChanges();
-                var message = new { message = "Order successfully placed!" };
+                var message = new { message = "Order successfully placed!", order = newOrder };
                 return JsonConvert.SerializeObject(message);
             }
             else
@@ -102,7 +104,7 @@ namespace TheWall.Controllers
                 {
                     product.Quantity -= quantity;
                     Dictionary<int, string> CustomerCart = new Dictionary<int, string>();
-                    var CartDetails = new { ProductId = product.ProductId, Name = product.Name , Quantity = quantity, VendorEmail = product.Vendor.Email, VendorFirstName = product.Vendor.FirstName, VendorLastName = product.Vendor.LastName, Product = product, CartItemId = CartItemId};
+                    var CartDetails = new { ProductId = product.ProductId, Name = product.Name , Quantity = quantity, VendorEmail = product.Vendor.Email, VendorFirstName = product.Vendor.FirstName, VendorLastName = product.Vendor.LastName, CustomerID = user.UserId, CustomerEmail = user.Email, CustomerFirstName = user.FirstName, CustomerLastName = user.LastName, Product = product, Customer = user , CartItemId = CartItemId};
                     //var CartDetails2 = new { Product: product }
                     var SerializedCartDetails = JsonConvert.SerializeObject(CartDetails);
                     CustomerCart.Add(CartItemId, SerializedCartDetails);
@@ -120,7 +122,7 @@ namespace TheWall.Controllers
                     product.Quantity -= quantity;
                     var CurrentUserCart = JsonConvert.DeserializeObject<Dictionary<int, string>>(user.ShoppingCart);
                     Console.WriteLine(CurrentUserCart);
-                    var CartDetails = new { ProductId = product.ProductId, Name = product.Name, Quantity = quantity, VendorEmail = product.Vendor.Email, VendorFirstName = product.Vendor.FirstName, VendorLastName = product.Vendor.LastName, Product = product, CartItemId = CartItemId };
+                    var CartDetails = new { ProductId = product.ProductId, Name = product.Name, Quantity = quantity, VendorEmail = product.Vendor.Email, VendorFirstName = product.Vendor.FirstName, VendorLastName = product.Vendor.LastName, CustomerID = user.UserId, CustomerEmail = user.Email, CustomerFirstName = user.FirstName, CustomerLastName = user.LastName, Product = product, Customer = user, CartItemId = CartItemId };
                     var SerializedCartDetails = JsonConvert.SerializeObject(CartDetails);
                     //int newCartItemId = rando.Next(1, 10000);
 

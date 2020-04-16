@@ -61,9 +61,11 @@ namespace TheWall.Controllers
 
                 dbContext.Add(newUser);
                 dbContext.SaveChanges();
-                User user2 = dbContext.Users.FirstOrDefault(user3 => user3.Email == user.Email);
-                Dictionary<int, string> CustomerCart = new Dictionary<int, string>();
-                var Cart = user2.ShoppingCart = JsonConvert.SerializeObject(CustomerCart);
+                //User user2 = dbContext.Users.FirstOrDefault(user3 => user3.Email == user.Email);
+
+                //Dictionary<int, string> CustomerCart = new Dictionary<int, string>();
+
+                //var Cart = user2.ShoppingCart = JsonConvert.SerializeObject(CustomerCart);
                 //var Cart1 = new { Cart = CustomerCart };
                 //var Cart = JsonConvert.SerializeObject(Cart1);
 
@@ -74,7 +76,7 @@ namespace TheWall.Controllers
                 //};
                 //dbContext.Add(shoppingCart);
                 //dbContext.SaveChanges();
-                var message = new { Response = "Message", Message = "Success!", Cart = CustomerCart };
+                var message = new { Response = "Message", Message = "Success!"};
 
                 return JsonConvert.SerializeObject(message);
             }

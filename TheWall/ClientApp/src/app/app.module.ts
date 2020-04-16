@@ -19,6 +19,7 @@ import { EditComponent } from './edit/edit.component';
 import { ProductComponent } from './product/product.component';
 import { AdminOrderComponent } from './admin-order/admin-order.component';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { OrderComponent } from './order/order.component';
 import { CanActivate } from '@angular/router';
  
 export function tokenGrabber() {
@@ -39,6 +40,8 @@ export function tokenGrabber() {
     ProductComponent,
     AdminOrderComponent,
     CheckoutComponent,
+    OrderComponent,
+
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -57,6 +60,7 @@ export function tokenGrabber() {
       { path: 'products', component: ProductComponent, canActivate: [AuthGuard] },
       { path: 'admin/order', component: AdminOrderComponent, canActivate: [AuthGuard] },
       { path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard] },
+      { path: 'orders', component: OrderComponent },
     ]),
     JwtModule.forRoot({
       config: {

@@ -11,9 +11,6 @@ namespace TheWall.Models
     {
         [Key]
         public int OrderNumber { get; set; }
-        [Required]
-        [Range(1, 1000000)]
-        public int Quantity { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
         public string Products { get; set; }

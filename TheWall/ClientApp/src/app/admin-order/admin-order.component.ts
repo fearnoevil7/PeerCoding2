@@ -23,6 +23,7 @@ export class AdminOrderComponent implements OnInit {
   shoppingCart: any;
   shoppingcart2 = [];
   orders: any;
+  ordersdeserialized = [];
   ParsedOrders = [];
 
 
@@ -124,6 +125,7 @@ export class AdminOrderComponent implements OnInit {
     let observable = this._httpService.checkInventory(this.productId, this.quantity1, this.userid);
     observable.subscribe(data => {
       console.log(data);
+      this._route.navigate(["admin/order"]);
       //this.CustomerCart.push({ productid: this.productId, quantity: this.quantity1, vendorId: data['VendorId'], lastName: data['VendorLastName'], firstName: data['VendorFirstName'], email: data['VendorEmail'] });
       //console.log("****CustomerCartLog********");
       //console.log(this.CustomerCart);
@@ -134,17 +136,26 @@ export class AdminOrderComponent implements OnInit {
     let observable = this._httpService.getOrders();
     observable.subscribe(data => {
       //console.log("Destringify", data['Orders']['Products']);
+      console.log("Orders!!!!!!!", data['Orders']);
       for (var i = 0; i < data['Orders'].length; i++) {
         console.log("Destringify Object's products", JSON.parse(data['Orders'][i]['Products']));
+        console.log(data['Orders'][i]);
         var firststep = JSON.parse(data['Orders'][i]['Products']);
+        console.log("&&&&&&&&Firstep^^^^^^^^", firststep);
+        for (var x = 0; x < JSON.parse(data['Orders'][i]['Products']).length; x++) {
+          //console.log("TEEEEEESSTT", JSON.parse(data['Orders'][i]['Products'])[x]);
+
+          this.ordersdeserialized.push(JSON.parse(data['Orders'][i]['Products'])[x]);
+        }
+
         //this.ParsedOrders.push(JSON.parse(firststep['Test']));
-        data['Orders'][i] = JSON.parse(firststep['Products']);
-        console.log("object", data['Orders'][i]);
-        console.log("testtest", data['Orders'][i]['Products']);
+        //console.log("object", data['Orders'][i]);
+
       }
+      console.log("UnpackedOrders", this.ordersdeserialized);
       console.log("Testing Parsed Orders Array!", this.ParsedOrders);
       this.orders = data['Orders'];
-      console.log("got our pending orders!", this.orders);
+      console.log("got our pending orders!", this.ordersdeserialized);
 
     })
   }

@@ -32,7 +32,7 @@ export class CheckoutComponent implements OnInit {
     this.getUsersFromService();
     this.getProductsFromService();
     this.currentUser();
-    this.newOrder = { UserId: null, Quantity: null, Products: null };
+    this.newOrder = { UserId: null, Products: null };
   }
 
   isUserAuthenticated() {
@@ -95,15 +95,17 @@ export class CheckoutComponent implements OnInit {
   }
 
   placeOrder() {
-    console.log("Check!!!!!!!");
-    console.log("*******NewOrder*******", this.newOrder);
+    this.newOrder['UserId'] = this.userid;
+    this.newOrder['Products'] = JSON.stringify(this.shoppingcart);
     var shoppingCart = JSON.parse(`{"ShoppingCart" : ${this.newOrder['Products']}}`);
-    this.newOrder['Products'] = shoppingCart;
+    console.log("*******ParseTestOrder*******", shoppingCart);
+    console.log("*******NewOrder*******", this.newOrder);
     let observable = this._httpService.createOrder(this.newOrder);
     observable.subscribe(data => {
       console.log("Success!!!!!!!");
       console.log(data);
       this.newOrder = { UserId: null, Quantity: null, Products: null };
+      this._route.navigate(["checkout"]);
     })
   }
 
@@ -122,6 +124,7 @@ export class CheckoutComponent implements OnInit {
     let observable = this._httpService.editShoppingCart(CartItemId, this.userid, productid, productquantity);
     observable.subscribe(data => {
       console.log(data);
+      this._route.navigate(["checkout"]);
       //Object.keys(data).forEach(function (key) {
       //  console.log(key + " !$-$! " + data[key]);
       //});

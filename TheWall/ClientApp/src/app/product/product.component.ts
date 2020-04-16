@@ -52,6 +52,7 @@ export class ProductComponent implements OnInit {
     observable.subscribe(data => {
       console.log("Product successfuly created!", data);
       this.newProduct = { Name: "", Quantity: null, Description: "", UserId: this.userid };
+      this._route.navigate(["products"]);
     })
   }
 
