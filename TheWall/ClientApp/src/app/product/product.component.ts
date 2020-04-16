@@ -13,6 +13,8 @@ export class ProductComponent implements OnInit {
   newProduct: any;
   userid: number;
   products: any;
+  count: number;
+  CustomerCart = [];
 
   constructor(
     private _httpService: HttpService,
@@ -59,6 +61,12 @@ export class ProductComponent implements OnInit {
       this.products = data['Products'];
       console.log("Got our products from service!", this.products);
     })
+  }
+
+  addToCart(id) {
+    this.CustomerCart.push({ id: id, quantity: this.count });
+    console.log("****CustomerCartLog********");
+    console.log(this.CustomerCart);
   }
 
 }

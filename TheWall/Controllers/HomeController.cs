@@ -58,9 +58,23 @@ namespace TheWall.Controllers
                     Email = user.Email,
                     Password = Hasher.HashPassword(user, user.Password),
                 };
+
                 dbContext.Add(newUser);
                 dbContext.SaveChanges();
-                var message = new { Response = "Message", Message = "Success!" };
+                User user2 = dbContext.Users.FirstOrDefault(user3 => user3.Email == user.Email);
+                Dictionary<int, string> CustomerCart = new Dictionary<int, string>();
+                var Cart = user2.ShoppingCart = JsonConvert.SerializeObject(CustomerCart);
+                //var Cart1 = new { Cart = CustomerCart };
+                //var Cart = JsonConvert.SerializeObject(Cart1);
+
+                //ShoppingCart shoppingCart = new ShoppingCart()
+                //{
+                //    UserId = user2.UserId,
+                //    Items = Cart,
+                //};
+                //dbContext.Add(shoppingCart);
+                //dbContext.SaveChanges();
+                var message = new { Response = "Message", Message = "Success!", Cart = CustomerCart };
 
                 return JsonConvert.SerializeObject(message);
             }
@@ -140,9 +154,12 @@ namespace TheWall.Controllers
         [Route("user/{userid}")]
         public string Show(int userid)
         {
-            var userInDB = dbContext.Users.FirstOrDefault(u => u.UserId == userid);
-            var user = new { User = userInDB };
-            return JsonConvert.SerializeObject(user);
+            //var userInDB = dbContext.Users.FirstOrDefault(u => u.UserId == userid);
+            //var user = new { User = userInDB };
+            //return JsonConvert.SerializeObject(user);
+            User user = dbContext.Users.FirstOrDefault(ut => ut.UserId == userid);
+            var User = new { User = user };
+            return JsonConvert.SerializeObject(User);
         }
 
         [Authorize]
@@ -189,7 +206,18 @@ namespace TheWall.Controllers
         {
             List<User> allUsers = dbContext.Users.ToList();
             var Users = new { Users = allUsers };
-            return JsonConvert.SerializeObject(Users);
+            try
+            {
+                return JsonConvert.SerializeObject(Users);
+            }
+            catch
+            {
+                return JsonConvert.SerializeObject(Users, new JsonSerializerSettings()
+                {
+                    PreserveReferencesHandling = PreserveReferencesHandling.Objects,
+                    Formatting = Formatting.Indented,
+                });
+            }
         }
 
 

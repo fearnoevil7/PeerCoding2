@@ -17,7 +17,9 @@ import { AuthGuard } from './auth-guard.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { EditComponent } from './edit/edit.component';
 import { ProductComponent } from './product/product.component';
-//import { CanActivate } from '@angular/router';
+import { AdminOrderComponent } from './admin-order/admin-order.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { CanActivate } from '@angular/router';
  
 export function tokenGrabber() {
   return localStorage.getItem("token");
@@ -35,6 +37,8 @@ export function tokenGrabber() {
     DashboardComponent,
     EditComponent,
     ProductComponent,
+    AdminOrderComponent,
+    CheckoutComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -47,8 +51,12 @@ export function tokenGrabber() {
       { path: 'registration', component: RegistrationComponent },
       { path: 'login', component: LoginComponent },
       { path: 'customers', component: DashboardComponent, canActivate: [AuthGuard] },  //method of authenticating with webtoken using Auth-Guard.service.ts
+
+
       { path: 'edit', component: EditComponent, canActivate: [AuthGuard] },
       { path: 'products', component: ProductComponent, canActivate: [AuthGuard] },
+      { path: 'admin/order', component: AdminOrderComponent, canActivate: [AuthGuard] },
+      { path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard] },
     ]),
     JwtModule.forRoot({
       config: {

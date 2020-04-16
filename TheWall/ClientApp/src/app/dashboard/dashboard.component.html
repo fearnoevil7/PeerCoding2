@@ -6,6 +6,7 @@
       <a (click)="logOut()"><u>Signout</u></a>
       <a [routerLink]="['/edit']"><u>Edit Profile</u></a>
       <a [routerLink]="['/products']"><u>Sell Products</u></a>
+      <a [routerLink]="['/admin/order']"><u>Place Order</u></a>
 
       <table>
           <thead>
@@ -17,6 +18,7 @@
           </thead>
           <tbody>
               <tr *ngFor="let user of users">
+                  {{user || json}}
                   <td>{{user.FirstName}} {{user.LastName}}</td>
                   <td>{{user.Email}}</td>
                   <td><button type="submit" value="remove" (click)="Destroy(user.UserId)">Delete</button></td>

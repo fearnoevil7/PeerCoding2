@@ -16,10 +16,10 @@ namespace TheWall.Models
         public int Quantity { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
-        
+        public string Products { get; set; }
         public int UserId { get; set; }
         [ForeignKey("UserId")]
         public User Customer { get; set; }
-        //public List<Product> ListOfProducts { get; set; }
+        //public Dictionary<int, Product> ShoppingCart { get; set; }
     }
 }

@@ -1,0 +1,8 @@
+<p>checkout works!</p>
+<h1>Items In Cart</h1>
+<div *ngFor="let item of shoppingcart; let i = index">
+    <h6>Item # {{i + 1}}</h6>
+    <p>Product Name: {{ item.Name }}</p>
+    <p>Product Quantity: {{ item.Quantity }}</p>
+    <p>Vendor Name: {{ item.VendorFirstName }} {{item.VendorLastName}}</p>
+</div>

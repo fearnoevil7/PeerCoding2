@@ -1,19 +1,17 @@
 ﻿<Properties StartupConfiguration="{D19A4481-6847-414E-9311-A76E24B93DF3}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="TheWall/ClientApp/src/app/product/product.component.html">
+  <MonoDevelop.Ide.Workbench ActiveDocument="TheWall/ClientApp/src/app/checkout/checkout.component.html">
     <Files>
-      <File FileName="TheWall/Controllers/ProductController.cs" Line="71" Column="58" />
-      <File FileName="TheWall/Controllers/WeatherForecastController.cs" Line="5" Column="28" />
-      <File FileName="TheWall/Controllers/HomeController.cs" Line="191" Column="50" />
-      <File FileName="TheWall/ClientApp/src/app/http.service.ts" Line="45" Column="47" />
-      <File FileName="TheWall/ClientApp/src/app/product/product.component.ts" Line="26" Column="35" />
-      <File FileName="TheWall/ClientApp/src/app/registration/registration.component.ts" Line="1" Column="1" />
-      <File FileName="TheWall/Models/Product.cs" Line="18" Column="19" />
-      <File FileName="TheWall/Models/User.cs" Line="32" Column="23" />
-      <File FileName="TheWall/ClientApp/src/app/product/product.component.html" Line="11" Column="6" />
-      <File FileName="TheWall/Models/Order.cs" Line="22" Column="43" />
-      <File FileName="TheWall/ClientApp/src/app/edit/edit.component.ts" Line="1" Column="1" />
-      <File FileName="TheWall/Models/Context.cs" Line="16" Column="40" />
-      <File FileName="TheWall/ClientApp/src/app/dashboard/dashboard.component.html" Line="1" Column="1" />
+      <File FileName="TheWall/ClientApp/src/app/admin-order/admin-order.component.html" Line="3" Column="10" IsPinned="True" />
+      <File FileName="TheWall/ClientApp/src/app/admin-order/admin-order.component.ts" Line="107" Column="21" IsPinned="True" />
+      <File FileName="TheWall/Controllers/OrderController.cs" Line="123" Column="260" />
+      <File FileName="TheWall/Controllers/HomeController.cs" Line="160" Column="40" />
+      <File FileName="TheWall/Models/Product.cs" Line="41" Column="20" />
+      <File FileName="TheWall/Models/User.cs" Line="1" Column="1" />
+      <File FileName="TheWall/ClientApp/src/app/http.service.ts" Line="61" Column="1" />
+      <File FileName="TheWall/ClientApp/src/app/checkout/checkout.component.html" Line="6" Column="21" />
+      <File FileName="TheWall/ClientApp/src/app/checkout/checkout.component.ts" Line="17" Column="21" />
+      <File FileName="TheWall/ClientApp/src/app/app.module.ts" Line="59" Column="84" />
+      <File FileName="TheWall/ClientApp/src/app/dashboard/dashboard.component.html" Line="9" Column="7" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -23,10 +21,11 @@
               <Node name="ClientApp" expanded="True">
                 <Node name="src" expanded="True">
                   <Node name="app" expanded="True">
+                    <Node name="admin-order" expanded="True" />
+                    <Node name="checkout" expanded="True" />
                     <Node name="dashboard" expanded="True">
                       <Node name="dashboard.component.html" selected="True" />
                     </Node>
-                    <Node name="edit" expanded="True" />
                     <Node name="product" expanded="True" />
                   </Node>
                 </Node>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace TheWall.Models
@@ -27,5 +28,33 @@ namespace TheWall.Models
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
         [NotMapped]
         public string ImageUrl { get; set; }
+
+        //public class Products : IEnumerable
+        //{
+        //    private Product[] _products;
+        //    public Products(Product[] pArray)
+        //    {
+        //        _products = new Product[pArray.Length];
+        //        for (int i = 0; i < pArray.Length; i++)
+        //        {
+        //            _products[i] = pArray[i];
+        //        }
+        //    }
+        //    IEnumerator IEnumerable.GetEnumerator()
+        //    {
+        //        return (IEnumerator)GetEnumerator();
+        //    }
+
+        //    private IEnumerator GetEnumerator()
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+
+        //    public ProductsEnum : GetEnumerator()
+        //    {
+        //        return new ProductsEnum(_products);
+        //    }
+        //}
     }
+
 }

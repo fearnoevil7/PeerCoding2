@@ -44,4 +44,23 @@ export class HttpService {
   getProducts() {
     return this._http.get("product/products");
   }
+
+  createOrder(order) {
+    console.log("*******RouteTeest********!!!!!!!!");
+    return this._http.post("order/create", order);
+  }
+
+  getOrders() {
+    console.log("*******!!!!!!!RoutesTEst*******!!!!!!!!");
+    return this._http.get("order/index");
+  }
+
+  checkInventory(productid, quantity, customerid) {
+    return this._http.get("order/addToCart/" + productid + "/" + quantity + "/" + customerid);
+  }
+
+  //getShoppingCart() {
+  //  return this._http.
+  //}
+
 }

@@ -1,6 +1,5 @@
 <p>Add a new product!</p>
 <button (click)="logOut()" value="Signout">Signout</button>
-{{user || json}}
 <form (submit)="sendToCreate()">
     <span>Name: </span><input type="text" name="Name" [(ngModel)]="newProduct.Name" />
     <span>Description: </span><input type="text" name="Description" [(ngModel)]="newProduct.Description" />
@@ -9,7 +8,12 @@
 </form>
 
 <div *ngFor="let product of products">
+{{product || json}}
     <p>{{ product.Name }}</p>
     <p>{{ product.Quantity }} left</p>
     <p>Vendor: {{product.Vendor.FirstName}} {{product.Vendor.LastName}}</p>
+    <form (submit)="addToCart(product.ProductId)">
+        <input type="number" name="Quantity" [(ngModel)]="count" />
+        <button type="submit" class="btn btn-success">Upload Product</button>
+    </form>
 </div>

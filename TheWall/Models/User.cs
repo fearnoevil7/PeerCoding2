@@ -28,7 +28,10 @@ namespace TheWall.Models
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
-        List<Order> ListOfOrders { get; set; }
-        List<Product> ProductInventory { get; set; }
+
+        //public ShoppingCart shoppingCart { get; set; }
+        //public List<Order> ListOfOrders { get; set; }
+        //public List<Product> ProductInventory { get; set; }
+        public string ShoppingCart { get; set; }
     }
 }

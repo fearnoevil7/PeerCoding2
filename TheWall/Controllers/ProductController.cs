@@ -69,6 +69,18 @@ namespace TheWall.Controllers
             List<Product> allProducts = dbContext.Products.Include(x => x.Vendor).ToList();
             var products = new { Products = allProducts };
             return JsonConvert.SerializeObject(products);
+            //try
+            //{
+            //    return JsonConvert.SerializeObject(products);
+            //}
+            //catch
+            //{
+            //    return JsonConvert.SerializeObject(products, new JsonSerializerSettings()
+            //    {
+            //        PreserveReferencesHandling = PreserveReferencesHandling.Objects,
+            //        Formatting = Formatting.Indented,
+            //    });
+            //}
         }
     }
 }
