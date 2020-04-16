@@ -15,6 +15,8 @@ export class CheckoutComponent implements OnInit {
   users: {};
   user: {};
   shoppingcart = [];
+  indexId: any;
+  tackcart = [];
   CustomerCart: {};
   newOrder: any;
 
@@ -74,16 +76,21 @@ export class CheckoutComponent implements OnInit {
       console.log("Got our user!", data);
       this.user = data['User'];
       var array = this.shoppingcart
+      var array2 = this.tackcart;
       console.log(JSON.parse(data['User']['ShoppingCart']));
       Object.keys(JSON.parse(data['User']['ShoppingCart'])).forEach(function (key) {
         console.log(key + " $-$ " + JSON.parse(data['User']['ShoppingCart'])[key]);
         array.push(JSON.parse(JSON.parse(data['User']['ShoppingCart'])[key]));
+        array2.push({ key: key, value: JSON.parse(JSON.parse(data['User']['ShoppingCart'])[key]) })
         //console.log(key + " &-& " + JSON.parse(data['User']['ShoppingCart'])[key]);
 
 
       });
       this.shoppingcart = array;
+      this.tackcart = array2;
       console.log("*******Test!!!!!!!********", this.shoppingcart);
+      console.log("!!!!!!*******Test2*******", this.tackcart);
+
     })
   }
 
@@ -97,6 +104,27 @@ export class CheckoutComponent implements OnInit {
       console.log("Success!!!!!!!");
       console.log(data);
       this.newOrder = { UserId: null, Quantity: null, Products: null };
+    })
+  }
+
+  removeFromCart(CartItemId) {
+    console.log("RemoveCart Index Test!!!!!!!", CartItemId);
+    console.log("RemoveCart Index Test!!!!!!!", this.indexId);
+    //var SelectedKey = null;
+    //for (var x = 0; x < this.tackcart.length; x++) {
+    //  console.log("Other Test!", this.tackcart[x]);
+
+    //  if (x == num) {
+    //    SelectedKey = this.tackcart[x]['key'];
+    //    console.log("RemoveCart Test!!!!!!!", SelectedKey);
+    //  }
+    //}
+    let observable = this._httpService.editShoppingCart(CartItemId, this.userid);
+    observable.subscribe(data => {
+      console.log(data);
+      //Object.keys(data).forEach(function (key) {
+      //  console.log(key + " !$-$! " + data[key]);
+      //});
     })
   }
 

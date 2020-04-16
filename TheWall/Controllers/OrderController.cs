@@ -95,16 +95,17 @@ namespace TheWall.Controllers
             Product product = dbContext.Products.Include(x => x.Vendor).FirstOrDefault(product1 => product1.ProductId == productid);
             if (product.Quantity >= quantity)
             {
+                Random rando = new Random();
+                int CartItemId = rando.Next(1, 10000);
                 User user = dbContext.Users.FirstOrDefault(qz => qz.UserId == userid);
                 if (user.ShoppingCart == null)
                 {
-                    Random rando = new Random();
                     product.Quantity -= quantity;
                     Dictionary<int, string> CustomerCart = new Dictionary<int, string>();
-                    var CartDetails = new { ProductId = product.ProductId, Name = product.Name , Quantity = quantity, VendorEmail = product.Vendor.Email, VendorFirstName = product.Vendor.FirstName, VendorLastName = product.Vendor.LastName, Product = product };
+                    var CartDetails = new { ProductId = product.ProductId, Name = product.Name , Quantity = quantity, VendorEmail = product.Vendor.Email, VendorFirstName = product.Vendor.FirstName, VendorLastName = product.Vendor.LastName, Product = product, CartItemId = CartItemId};
                     //var CartDetails2 = new { Product: product }
                     var SerializedCartDetails = JsonConvert.SerializeObject(CartDetails);
-                    CustomerCart.Add(rando.Next(1, 100), SerializedCartDetails);
+                    CustomerCart.Add(CartItemId, SerializedCartDetails);
                     var ticket = new { ProductAddedToCart = "The product: " + product.Name + " successfully added to cart!", ProductId = product.ProductId, OrderQuantity = quantity, ProductInventory = product.Quantity, VendorId = product.Vendor.UserId, VendorEmail = product.Vendor.Email, VendorFirstName = product.Vendor.FirstName, VendorLastName = product.Vendor.LastName };
                     var cart3 = new { Cart = CustomerCart };
                     //var Cart = JsonConvert.SerializeObject(ticket);
@@ -116,37 +117,40 @@ namespace TheWall.Controllers
                 }
                 else
                 {
-                    Random rando = new Random();
                     product.Quantity -= quantity;
                     var CurrentUserCart = JsonConvert.DeserializeObject<Dictionary<int, string>>(user.ShoppingCart);
                     Console.WriteLine(CurrentUserCart);
-                    var CartDetails = new { ProductId = product.ProductId, Name = product.Name, Quantity = quantity, VendorEmail = product.Vendor.Email, VendorFirstName = product.Vendor.FirstName, VendorLastName = product.Vendor.LastName, Product = product };
+                    var CartDetails = new { ProductId = product.ProductId, Name = product.Name, Quantity = quantity, VendorEmail = product.Vendor.Email, VendorFirstName = product.Vendor.FirstName, VendorLastName = product.Vendor.LastName, Product = product, CartItemId = CartItemId };
                     var SerializedCartDetails = JsonConvert.SerializeObject(CartDetails);
-                    int newCartItemId = rando.Next(1, 1000);
+                    //int newCartItemId = rando.Next(1, 10000);
+
                     bool duplicateIdCheck = false;
+                    List<object> test16 = new List<object>();
                     foreach (KeyValuePair<int, string> entry in CurrentUserCart)
                     {
-                        
                         Console.WriteLine(entry.Key + " $-$ " + JsonConvert.DeserializeObject(entry.Value));
+                        //var test7 = JsonConvert.DeserializeObject(entry.Value);
+                        //Console.WriteLine(" %-% " + test7["CartItemId"]);
                         Console.WriteLine(JsonConvert.DeserializeObject(entry.Value));
-                        if (newCartItemId == entry.Key)
+                        if (CartItemId == entry.Key)
                         {
                             duplicateIdCheck = true;
                         }
+                        //test16.Add(JsonConvert.DeserializeObject(entry.Value));
                     }
-                    if (duplicateIdCheck == true)
+                    if (duplicateIdCheck == true )
                     {
                         var error = new { error = "Duplicate shopping cart item error!" };
                         return JsonConvert.SerializeObject(error);
                     }
                     else
                     {
-                        CurrentUserCart.Add(rando.Next(1,1000), SerializedCartDetails);
+                        CurrentUserCart.Add(CartItemId, SerializedCartDetails);
                         Console.WriteLine("*******CurrentUserCart*******", CurrentUserCart);
                         var Cart1 = JsonConvert.SerializeObject(CurrentUserCart);
                         user.ShoppingCart = Cart1;
                         dbContext.SaveChanges();
-                        var success = new { message = "The product: " + product.Name + " successfully added to cart!", ProductId = product.ProductId, OrderQuantity = quantity, ProductInventory = product.Quantity, VendorId = product.Vendor.UserId, VendorEmail = product.Vendor.Email, VendorFirstName = product.Vendor.FirstName, VendorLastName = product.Vendor.LastName, Cart = CurrentUserCart };
+                        var success = new { message = "The product: " + product.Name + " successfully added to cart!", ProductId = product.ProductId, OrderQuantity = quantity, ProductInventory = product.Quantity, VendorId = product.Vendor.UserId, VendorEmail = product.Vendor.Email, VendorFirstName = product.Vendor.FirstName, VendorLastName = product.Vendor.LastName, Cart = CurrentUserCart, Test16 = test16 };
                         return JsonConvert.SerializeObject(success);
                     }
                     
@@ -157,6 +161,33 @@ namespace TheWall.Controllers
                var error = new { error = "Sorry for the inconvenience there are only " + product.Quantity + " available!"};
                return JsonConvert.SerializeObject(error);
             }
+        }
+
+        [Authorize]
+        [HttpGet]
+        [Route("editCart/{userid}/{keynum}")]
+        public string ConfigureCart(int keynum, int userid)
+        {
+            Dictionary<int, string> newCustomerCart = new Dictionary<int, string>();
+            User user1 = dbContext.Users.FirstOrDefault(u => u.UserId == userid);
+            Console.WriteLine(JsonConvert.DeserializeObject(user1.ShoppingCart));
+            Console.WriteLine("*********SelectedKey*********");
+            Console.WriteLine(keynum);
+            foreach (KeyValuePair<int, string> entry in JsonConvert.DeserializeObject<Dictionary<int, string>>(user1.ShoppingCart))
+            {
+                Console.WriteLine(entry.Key + " @$-$@ " + JsonConvert.DeserializeObject(entry.Value));
+                if (entry.Key != keynum)
+                {
+                    Console.WriteLine("^^^^^^^Does Not Match Key num^^^^^^^");
+                    Console.WriteLine(entry.Key);
+                    newCustomerCart.Add(entry.Key, entry.Value);
+                }
+            }
+            string Cart = JsonConvert.SerializeObject(newCustomerCart);
+            user1.ShoppingCart = Cart;
+            dbContext.SaveChanges();
+            var success = new { Test = newCustomerCart };
+            return JsonConvert.SerializeObject(success);
         }
     }
 }

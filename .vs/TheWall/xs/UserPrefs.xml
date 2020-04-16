@@ -1,17 +1,18 @@
 ﻿<Properties StartupConfiguration="{D19A4481-6847-414E-9311-A76E24B93DF3}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="TheWall/ClientApp/src/app/checkout/checkout.component.html">
+  <MonoDevelop.Ide.Workbench ActiveDocument="TheWall/Program.cs">
     <Files>
-      <File FileName="TheWall/ClientApp/src/app/admin-order/admin-order.component.html" Line="3" Column="10" IsPinned="True" />
-      <File FileName="TheWall/ClientApp/src/app/admin-order/admin-order.component.ts" Line="107" Column="21" IsPinned="True" />
-      <File FileName="TheWall/Controllers/OrderController.cs" Line="123" Column="260" />
+      <File FileName="TheWall/ClientApp/src/app/admin-order/admin-order.component.html" Line="47" Column="5" IsPinned="True" />
+      <File FileName="TheWall/ClientApp/src/app/admin-order/admin-order.component.ts" Line="128" Column="27" IsPinned="True" />
+      <File FileName="TheWall/Controllers/OrderController.cs" Line="123" Column="258" />
       <File FileName="TheWall/Controllers/HomeController.cs" Line="160" Column="40" />
       <File FileName="TheWall/Models/Product.cs" Line="41" Column="20" />
       <File FileName="TheWall/Models/User.cs" Line="1" Column="1" />
-      <File FileName="TheWall/ClientApp/src/app/http.service.ts" Line="61" Column="1" />
-      <File FileName="TheWall/ClientApp/src/app/checkout/checkout.component.html" Line="6" Column="21" />
-      <File FileName="TheWall/ClientApp/src/app/checkout/checkout.component.ts" Line="17" Column="21" />
-      <File FileName="TheWall/ClientApp/src/app/app.module.ts" Line="59" Column="84" />
+      <File FileName="TheWall/ClientApp/src/app/http.service.ts" Line="63" Column="60" />
+      <File FileName="TheWall/ClientApp/src/app/checkout/checkout.component.html" Line="11" Column="7" />
+      <File FileName="TheWall/ClientApp/src/app/checkout/checkout.component.ts" Line="115" Column="50" />
+      <File FileName="TheWall/ClientApp/src/app/app.module.ts" Line="41" Column="23" />
       <File FileName="TheWall/ClientApp/src/app/dashboard/dashboard.component.html" Line="9" Column="7" />
+      <File FileName="TheWall/Program.cs" Line="16" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -23,9 +24,7 @@
                   <Node name="app" expanded="True">
                     <Node name="admin-order" expanded="True" />
                     <Node name="checkout" expanded="True" />
-                    <Node name="dashboard" expanded="True">
-                      <Node name="dashboard.component.html" selected="True" />
-                    </Node>
+                    <Node name="dashboard" expanded="True" />
                     <Node name="product" expanded="True" />
                   </Node>
                 </Node>
@@ -33,6 +32,7 @@
               <Node name="Controllers" expanded="True" />
               <Node name="Models" expanded="True" />
               <Node name="appsettings.json" expanded="True" />
+              <Node name="Program.cs" selected="True" />
             </Node>
           </Node>
         </State>

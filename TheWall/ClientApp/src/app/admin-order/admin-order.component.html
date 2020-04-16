@@ -30,7 +30,7 @@
     <p>Availability: {{ product.Quantity }} left</p>
     <p>Vendor: {{product.Vendor.FirstName}} {{product.Vendor.LastName}}</p>
 </div>
-<form (submit)="addToCart(product.Vendor.UserId, product.Vendor.FirstName, product.Vendor.LastName, product.Vendor.Email)">
+<form (submit)="addToCart()">
     <select type="number" name="productId" [(ngModel)]="productId">
         <option *ngFor="let product of products" [value]="product.ProductId">{{ product.Name }}</option>
     </select>
@@ -44,7 +44,7 @@
         <option>6</option>
         <option>7</option>
     </select>
-    <input type="hidden" name="Vendor" [value]="product.UserId" [(ngModel)]="vendorId" />
+    
     <button type="submit" class="btn btn-success">Upload Product</button>
 </form>
 <div *ngFor="let order of orders">

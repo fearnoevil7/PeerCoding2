@@ -5,4 +5,8 @@
     <p>Product Name: {{ item.Name }}</p>
     <p>Product Quantity: {{ item.Quantity }}</p>
     <p>Vendor Name: {{ item.VendorFirstName }} {{item.VendorLastName}}</p>
+    <p>Cart Item Id: {{ item.CartItemId }}</p>
+    <form (submit)="removeFromCart(item.CartItemId)">
+        <button type="submit" class="btn btn-success">Remove From Cart</button>
+    </form>
 </div>
