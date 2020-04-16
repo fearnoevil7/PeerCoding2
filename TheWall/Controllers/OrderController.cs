@@ -165,8 +165,8 @@ namespace TheWall.Controllers
 
         [Authorize]
         [HttpGet]
-        [Route("editCart/{userid}/{keynum}")]
-        public string ConfigureCart(int keynum, int userid)
+        [Route("editCart/{userid}/{keynum}/{productid}/{quantity}")]
+        public string ConfigureCart(int keynum, int userid, int productid, int quantity )
         {
             Dictionary<int, string> newCustomerCart = new Dictionary<int, string>();
             User user1 = dbContext.Users.FirstOrDefault(u => u.UserId == userid);
@@ -185,6 +185,8 @@ namespace TheWall.Controllers
             }
             string Cart = JsonConvert.SerializeObject(newCustomerCart);
             user1.ShoppingCart = Cart;
+            Product product = dbContext.Products.FirstOrDefault(p => p.ProductId == productid);
+            product.Quantity += quantity;
             dbContext.SaveChanges();
             var success = new { Test = newCustomerCart };
             return JsonConvert.SerializeObject(success);

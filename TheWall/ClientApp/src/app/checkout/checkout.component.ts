@@ -107,7 +107,7 @@ export class CheckoutComponent implements OnInit {
     })
   }
 
-  removeFromCart(CartItemId) {
+  removeFromCart(CartItemId, productid, productquantity) {
     console.log("RemoveCart Index Test!!!!!!!", CartItemId);
     console.log("RemoveCart Index Test!!!!!!!", this.indexId);
     //var SelectedKey = null;
@@ -119,7 +119,7 @@ export class CheckoutComponent implements OnInit {
     //    console.log("RemoveCart Test!!!!!!!", SelectedKey);
     //  }
     //}
-    let observable = this._httpService.editShoppingCart(CartItemId, this.userid);
+    let observable = this._httpService.editShoppingCart(CartItemId, this.userid, productid, productquantity);
     observable.subscribe(data => {
       console.log(data);
       //Object.keys(data).forEach(function (key) {
