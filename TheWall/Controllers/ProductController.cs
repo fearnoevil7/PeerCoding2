@@ -46,6 +46,7 @@ namespace TheWall.Controllers
                     Quantity = product.Quantity,
                     Description = product.Description,
                     UserId = userid,
+                    ImageUrl = product.ImageUrl
                 };
                 dbContext.Products.Add(newProduct);
                 dbContext.SaveChanges();

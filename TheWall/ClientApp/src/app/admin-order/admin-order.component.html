@@ -3,13 +3,23 @@
 <a [routerLink]="['/checkout']"><u>View Cart</u></a>
 
 
-<form (submit)="placeOrder()">
-    <label>Customer Name</label>
-    <select type="number" name="UserId" [(ngModel)]="customerId">
-        <option *ngFor="let user of users" [value]="user.UserId">{{ user.FirstName }} {{ user.LastName }}</option>
-    </select>
-    <button type="submit" class="btn btn-success">Place Order</button>
+<form (submit)="onFileSelected($event)">
+    <label>Upload Image</label>
+    <input type="file" (change)="onFileSelected($event)" name="Image" >
+    <button type="submit" class="btn btn-success">Upload</button>
 </form>
+<input type="file" (change)="onUpload($event)">
+<br />
+<span style="font-weight: bold; color: green;" *ngIf="progress > 0 && progess < 100" > {{progress}}% </span>
+<span style="font-weight: bold; color: green;" *ngIf="message">{{message}}</span>
+<span *ngIf>{{imageurl}}</span>
+
+
+
+
+<div *ngIf="imageurl">
+    <img [src]="imageurl" [alt]="imageurl" />
+</div>
 
 <div *ngFor="let product of products">
     <p>Product Name: {{ product.Name }}</p>

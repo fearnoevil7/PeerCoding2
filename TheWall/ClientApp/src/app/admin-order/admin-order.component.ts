@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { HttpService } from '../http.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { HttpEventType, HttpClient, HttpRequest, HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-admin-order',
@@ -25,6 +26,11 @@ export class AdminOrderComponent implements OnInit {
   orders: any;
   ordersdeserialized = [];
   ParsedOrders = [];
+  SelectedFile = null;
+  public progress: number;
+  public message: string;
+  @Output() public onUploadFinished = new EventEmitter();
+  imageurl: string;
 
 
 
@@ -33,6 +39,7 @@ export class AdminOrderComponent implements OnInit {
     private _router: ActivatedRoute,
     private _route: Router,
     private jwtHelper: JwtHelperService,
+    private http: HttpClient,
   ) { }
 
   ngOnInit() {
@@ -43,6 +50,8 @@ export class AdminOrderComponent implements OnInit {
     this.currentUser();
     this.newOrder = { UserId: null, Quantity: null, Products: null };
     this.shoppingCart = { cart: null };
+    console.log(this.imageurl);
+    
   }
 
   isUserAuthenticated() {
@@ -160,8 +169,39 @@ export class AdminOrderComponent implements OnInit {
     })
   }
 
-  //viewShoppingCart() {
-  //  let observable = this._httpService.
-  //}
+  onFileSelected(event) {
+    this.SelectedFile = <File>event.target.files[0];
+    console.log("#######event#######", event);
+    console.log("#######File######", this.SelectedFile);
+  }
+
+  onUpload(event) {
+    if (event.target.files.length === 0) {
+      console.log("&&&&&&&Files.length is 0!!!!!!!");
+      return;
+    }
+    const formData = new FormData();
+
+    for (let file of event.target.files) {
+      formData.append(file.name, file);
+    }
+
+    const uploadreq = new HttpRequest('POST', `home/test`, formData, { reportProgress: true });
+    this.http.request(uploadreq).subscribe(event => {
+      if (event.type === HttpEventType.UploadProgress) {
+        this.progress = Math.round(100 * event.loaded / event.total);
+      } else if (event.type === HttpEventType.Response) {
+        this.message = event.body['message'];
+        this.imageurl = event.body['path2'];
+      }
+
+      console.log("Test@@@@@@@@!!!!!!!", this.imageurl);
+      console.log("Data@@@@@@@@!!!!!!!", event);
+      //if (event['body']['path'] != null) {
+      //  console.log("Test@@@@@@@@!!!!!!!", event['body']['path']);
+      //}
+
+    });
+  }
 
 }

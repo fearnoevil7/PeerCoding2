@@ -26,7 +26,6 @@ namespace TheWall.Models
         //public Order Ticket { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
-        [NotMapped]
         public string ImageUrl { get; set; }
 
         //public class Products : IEnumerable

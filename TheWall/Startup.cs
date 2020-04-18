@@ -14,6 +14,9 @@ using System.Threading.Tasks;
 using System.Linq;
 using System.Security.Claims;
 using TheWall.Models;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace TheWall
 {
@@ -70,6 +73,12 @@ namespace TheWall
                         .AllowAnyMethod();
                 });
             });
+            services.Configure<FormOptions>(o =>
+            {
+                o.ValueLengthLimit = int.MaxValue;
+                o.MultipartBodyLengthLimit = int.MaxValue;
+                o.MemoryBufferThreshold = int.MaxValue;
+            });
 
         }
 
@@ -92,7 +101,16 @@ namespace TheWall
             if (!env.IsDevelopment())
             {
                 app.UseSpaStaticFiles();
+                //app.UseSpaStaticFiles(new StaticFileOptions()
+                //{
+                //    FileProvider = new PhysicalFileProvider
+                //})
             }
+            app.UseStaticFiles(new
+                StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(Directory.GetCurrentDirectory() + "/ClientApp/src/assets/images/")
+            }); ;
             app.UseRouting();
             app.UseAuthentication();
             app.UseCors("EnableCORS");

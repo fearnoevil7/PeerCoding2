@@ -14,6 +14,13 @@ using Microsoft.Extensions.Configuration;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
+using System.Net.Http.Headers;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using LazZiya.ImageResize;
 using TheWall.Models;
 
 namespace TheWall.Controllers
@@ -202,12 +209,102 @@ namespace TheWall.Controllers
         }
 
         [Authorize]
+        [HttpPost, DisableRequestSizeLimit]
+        [Route("test")]
+        public string Test()
+        {
+            var foldername = Directory.GetCurrentDirectory() + "/ClientApp/src/assets/images/";
+            if (Directory.Exists(foldername))
+            {
+                Console.WriteLine("Directory already exists!");
+            }
+            else
+            {
+                DirectoryInfo di = Directory.CreateDirectory(foldername);
+                Console.WriteLine("The directory was created successfully at {0}.", Directory.GetCreationTime(foldername));
+            }
+            try
+            {
+                var file1 = Request.Form.Files[0];
+                var root = Directory.GetCurrentDirectory();
+                var imagefolder = Directory.GetCurrentDirectory() + "/ClientApp/src/assets/images/";
+                
+
+                if (file1.Length > 0)
+                {
+
+                    var fileName = ContentDispositionHeaderValue.Parse(file1.ContentDisposition).FileName.Trim('"');
+                    var fullPath = foldername + fileName;
+                    var dbPath = Path.Combine("/ClientApp/src/assets/images/" + fileName);
+                    var dbPath2 = "./assets/images/" + fileName;
+                    using (var stream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        file1.CopyTo(stream);
+                    }
+
+                    //var imagepath = Directory.GetCurrentDirectory() + "/ClientApp/src/assets/images/" + fileName;
+
+                    //var img = Image.FromFile(imagepath);
+
+                    //var scaleimage = ImageResize.Scale(img, 100, 100);
+
+                    var path = new { path = dbPath, message = "Success!!!!!!!!", path2 = dbPath2 };
+
+                    return JsonConvert.SerializeObject(path);
+                    //return Ok(new { dbPath });
+                }
+                else
+                {
+                    var error = new { error = "Failed to stream image" };
+
+                    return JsonConvert.SerializeObject(error);
+                }
+            }
+            catch(System.Exception ex)
+            {
+                var error = new { error = "Upload Failed: " + ex.Message };
+
+                return JsonConvert.SerializeObject(error);
+            }
+
+            //OpenFileDialogue
+            //string sourceFile = System.IO.Path.Combine(root, filename);
+            //File.Copy(Path.Combine(imagefolder), filename);
+            //Bitmap bmp = new Bitmap()
+            //File.Copy(Path.Combine(sourceDir, fName));
+        }
+
+
+        [Authorize]
         [HttpGet]
         [Route("users")]
         public string Index()
         {
+            var root = AppDomain.CurrentDomain.BaseDirectory;
+            var imagefolder = AppDomain.CurrentDomain.BaseDirectory + "images";
+            var foldername = Directory.GetCurrentDirectory() + "/ClientApp/src/assets/images/";
+
+            string[] dirs = Directory.GetDirectories(root, "*", SearchOption.AllDirectories);
+            foreach (string dir in dirs)
+            {
+                Console.WriteLine(dir);
+            }
+            FileInfo fileInfo = new FileInfo(root);
+            DirectoryInfo parentDir = fileInfo.Directory.Parent;
+            string parentDirName = parentDir.FullName;
+            //if (Directory.Exists(foldername))
+            //{
+            //    Console.WriteLine("Directory already exists!");
+            //}
+            //else
+            //{
+            //    DirectoryInfo di = Directory.CreateDirectory(foldername);
+            //    Console.WriteLine("The directory was created successfully at {0}.", Directory.GetCreationTime(foldername));
+            //}
+
+
             List<User> allUsers = dbContext.Users.ToList();
-            var Users = new { Users = allUsers };
+            var Users = new { Users = allUsers, Path = root, ImagePath = imagefolder, dirs = dirs, parent = parentDirName, test7 = Directory.GetCurrentDirectory() };
             try
             {
                 return JsonConvert.SerializeObject(Users);

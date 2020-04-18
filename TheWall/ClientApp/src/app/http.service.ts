@@ -62,6 +62,7 @@ export class HttpService {
   editShoppingCart(key, userid, productid, quantity) {
     console.log("http remove item from cart", key, userid);
     return this._http.get("order/editCart/" + userid + "/" + key + "/" + productid + "/" + quantity );
+
   }
 
 }
