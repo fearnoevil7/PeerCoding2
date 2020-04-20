@@ -1,10 +1,22 @@
-<p>order works!</p>
-<h1>Orders</h1>
-<div *ngFor="let item of ordersdeserialized; let i = index">
-    <h6>Order # {{i + 1}}</h6>
-    <p>Customer Name: {{ item.Customer.FirstName }} {{ item.Customer.LastName }}</p>
-    <p>Product Name: {{ item.Product.Name }}</p>
-    <p>Product Quantity: {{ item.Product.Quantity }}</p>
-    <p>Vendor Name: {{ item.Product.Vendor.FirstName }} {{ item.Product.Vendor.LastName }}</p>
-    <p>Cart Item Id: {{ item.CartItemId }}</p>
-</div>
+
+<h1>Order </h1>
+<section  style="width: 1000px; margin: 52px 0px 100px 133px;">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Order Number</th>
+                <th scope="col">Customer Name</th>
+                <th scope="col">Creation Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let order of orders; let i = index">
+                <th scope="row">{{order.OrderId}}</th>
+                <td><a href="" [routerLink]="['/details/order', order.OrderId, order.Ticket]"><u><b>{{order.Ticket}}</b></u></a></td>
+                <td>{{order.CustomerName}}</td>
+                <td>{{order.CreatedAt}}</td>
+            </tr>
+        </tbody>
+    </table>
+</section>

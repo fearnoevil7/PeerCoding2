@@ -1,3 +1,4 @@
+
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { HttpService } from '../http.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -5,17 +6,15 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { HttpEventType, HttpClient, HttpRequest, HttpResponse } from '@angular/common/http';
 
 @Component({
-  selector: 'app-product',
-  templateUrl: './product.component.html',
-  styleUrls: ['./product.component.css']
+  selector: 'app-new-product',
+  templateUrl: './new-product.component.html',
+  styleUrls: ['./new-product.component.css']
 })
-export class ProductComponent implements OnInit {
+export class NewProductComponent implements OnInit {
   id: {};
   newProduct: any;
   userid: number;
   products: any;
-  count: number;
-  CustomerCart = [];
   public progress: number;
   public message: string;
   @Output() public onUploadFinished = new EventEmitter();
@@ -34,7 +33,6 @@ export class ProductComponent implements OnInit {
     this.isUserAuthenticated();
     this.getProductsFromService();
     this.newProduct = { Name: "", Quantity: null, Description: "", UserId: this.userid, ImageUrl: null };
-    console.log("TESSST!!!!!!", this.imageurl);
   }
 
   isUserAuthenticated() {
@@ -72,12 +70,6 @@ export class ProductComponent implements OnInit {
       this.products = data['Products'];
       console.log("Got our products from service!", this.products);
     })
-  }
-
-  addToCart(id) {
-    this.CustomerCart.push({ id: id, quantity: this.count });
-    console.log("****CustomerCartLog********");
-    console.log(this.CustomerCart);
   }
 
   onUpload(event) {

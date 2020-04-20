@@ -3,7 +3,7 @@
     class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
   >
     <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']">TheWall</a>
+      <a class="navbar-brand" [routerLink]="['/']">ECommerce</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -20,17 +20,6 @@
         [ngClass]="{ show: isExpanded }"
       >
           <ul class="navbar-nav flex-grow">
-              <li class="nav-item"
-                  [routerLinkActive]="['link-active']"
-                  [routerLinkActiveOptions]="{ exact: true }">
-                  <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
-              </li>
-              <li class="nav-item" [routerLinkActive]="['link-active']">
-                  <a class="nav-link text-dark" [routerLink]="['/counter']">Counter</a>
-              </li>
-              <li class="nav-item" [routerLinkActive]="['link-active']">
-                  <a class="nav-link text-dark" [routerLink]="['/fetch-data']">Fetch data</a>
-              </li>
               <li class="nav-item" [routerLinkActive]="['link-active']">
                   <a class="nav-link text-dark" [routerLink]="['/registration']">Registration</a>
               </li>
@@ -39,6 +28,9 @@
               </li>
               <li class="nav-item" [routerLinkActive]="['link-active']">
                   <a class="nav-link text-dark" [routerLink]="['/orders']">View Orders</a>
+              </li>
+              <li class="nav-item" [routerLinkActive]="['link-active']">
+                  <a class="nav-link text-dark" (click)="logOut()">Logout</a>
               </li>
           </ul>
       </div>

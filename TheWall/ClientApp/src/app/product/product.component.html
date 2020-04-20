@@ -1,33 +1,26 @@
-<p>Add a new product!</p>
-<button (click)="logOut()" value="Signout">Signout</button>
-<form (submit)="sendToCreate()">
-    <span>Name: </span><input type="text" name="Name" [(ngModel)]="newProduct.Name" />
-    <span>Description: </span><input type="text" name="Description" [(ngModel)]="newProduct.Description" />
-    <span>Initial Quantity: </span><input type="number" name="Quantity" [(ngModel)]="newProduct.Quantity" />
-    <span>Upload Product Image: </span><input type="file" (change)="onUpload($event)">
-    <button type="submit" class="btn btn-success">Upload Product</button>
-</form>
-<br />
-<span style="font-weight: bold; color: green;" *ngIf="progress > 0 && progess < 100"> {{progress}}% </span>
-<span style="font-weight: bold; color: green;" *ngIf="message">{{message}}</span>
+<section>
+    <input style="margin: 50px 0px 50px  0px" type="text" name="Name" [(ngModel)]="searchText" placeholder="Search For Product" />
+</section>
 
-<div *ngFor="let product of products">
-    <div *ngIf="product.Quantity > 0">
-        <h3>Add Item To Cart</h3>
-        <br />
-        <p>Product: {{ product.Name }}</p>
-        <p>Quantity Left In Inventory: {{ product.Quantity }} left</p>
-        <p>Vendor: {{product.Vendor.FirstName}} {{product.Vendor.LastName}}</p>
-        <div *ngIf="product.ImageUrl">
-            <img [src]="product.ImageUrl" [alt]="product.ImageUrl" style="width: 100px; height: 100px;" />
+<div class="productscontainer">
+    <div class="products" *ngFor="let product of products | filter1 : searchText : 'Name'">
+        <div *ngIf="product.Quantity > 0">
+            <br />
+            <div *ngIf="product.ImageUrl">
+                <img [src]="product.ImageUrl" [alt]="product.ImageUrl" style="width: 100px; height: 100px;" />
+            </div>
+            <br />
+            <p>Product: {{ product.Name }}</p>
+            <p>Quantity Left In Inventory: {{ product.Quantity }} left</p>
+            <p>Vendor: {{product.Vendor.FirstName}} {{product.Vendor.LastName}}</p>
+            <br />
+            <br />
+            <form (submit)="addToCart(product.ProductId)">
+                <label>Quantity Desired:</label>
+                <input type="number" name="Quantity" [(ngModel)]="count" />
+                <button type="submit" class="btn btn-success">Upload Product</button>
+            </form>
+            <br />
         </div>
-        <br />
-        <br />
-        <form (submit)="addToCart(product.ProductId)">
-            <label>Quantity Desired:</label>
-            <input type="number" name="Quantity" [(ngModel)]="count" />
-            <button type="submit" class="btn btn-success">Upload Product</button>
-        </form>
-        <br />
     </div>
 </div>

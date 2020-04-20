@@ -1,0 +1,32 @@
+.login {
+  display: block;
+  margin: 0px, 0px 0px 0px;
+}
+
+.loginContainer {
+  margin: 150px 0px 200px 475px;
+  border: solid black 3px;
+  width: 400px;
+  height: 400px;
+}
+
+.minicontainer {
+    margin: 70px 0px 0px 88px;
+}
+
+.loginh3 {
+  margin: 0px 0px 25px 0px;
+}
+
+#loginButton {
+  margin: 25px 0px 0px 139px;
+}
+
+.fields {
+  display: block;
+  margin: 0px 0px 25px 0px;
+}
+
+#registerButton{
+    margin: 0px 0px 0px 150px;
+}

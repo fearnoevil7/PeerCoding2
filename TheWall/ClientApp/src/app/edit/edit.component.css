@@ -1,0 +1,17 @@
+.container {
+  height: 520px;
+  width: 500px;
+  margin: 100px 0px 100px 376px;
+  border: solid black 3px;
+}
+.field{
+    display: block;
+    margin: 0px 0px 25px 0px;
+}
+#button{
+    margin: 0px 0px 0px 97px;
+}
+
+.minicontainer{
+    margin: 52px 0px 0px 124px;
+}

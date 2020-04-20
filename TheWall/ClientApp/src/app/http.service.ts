@@ -55,6 +55,10 @@ export class HttpService {
     return this._http.get("order/index");
   }
 
+  getOrder(id) {
+    return this._http.get("order/show/" + id);
+  }
+
   checkInventory(productid, quantity, customerid) {
     return this._http.get("order/addToCart/" + productid + "/" + quantity + "/" + customerid);
   }

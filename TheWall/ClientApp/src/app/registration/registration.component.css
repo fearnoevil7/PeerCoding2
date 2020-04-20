@@ -1,0 +1,27 @@
+.register {
+  display: block;
+}
+
+.registerContainer {
+  margin: 100px 0px 200px 450px;
+  border: solid black 3px;
+  height: 665px;
+  width: 400px;
+}
+
+#registerButton {
+  margin: 0px 0px 0px 138px;
+}
+
+.registerh3 {
+  margin: 0px 0px 25px 0px;
+}
+
+.fields{
+    display: block;
+    margin: 0px 0px 25px 0px;
+}
+
+.minicontainer{
+    margin: 70px 0px 0px 88px;
+}

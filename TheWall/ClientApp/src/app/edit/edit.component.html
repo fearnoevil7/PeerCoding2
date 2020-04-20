@@ -1,10 +1,25 @@
-<p>edit works!</p>
-<button (click)="logOut()" value="Signout">Signout</button>
-{{user || json}}
-<form (submit)="sendToUpdate()">
-    <span>First Name: </span><input type="text" name="firstName" [value]="first_Name" [(ngModel)]="UserToUpdate.firstName" />
-    <span>Last Name: </span><input type="text" name="firstName" [value]="last_Name" [(ngModel)]="UserToUpdate.lastName" />
-    <span>Email: </span><input type="text" name="email" [value]="_email" [(ngModel)]="UserToUpdate.email" />
-    <span>Password: </span><input type="text" name="password" [(ngModel)]="UserToUpdate.password" />
-    <button type="submit" class="btn btn-success">Update User</button>
-</form>
+
+<div class="container">
+    <div class="minicontainer">
+        <h3>Edit Profile</h3>
+        <form (submit)="sendToUpdate()">
+            <span>First Name: </span><input type="text" name="firstName" [value]="first_Name" [(ngModel)]="UserToUpdate.firstName" class="field" />
+            <span>Last Name: </span><input type="text" name="firstName" [value]="last_Name" [(ngModel)]="UserToUpdate.lastName" class="field" />
+            <span>Email: </span><input type="text" name="email" [value]="_email" [(ngModel)]="UserToUpdate.email" class="field" />
+            <span>Password: </span><input type="text" name="password" [(ngModel)]="UserToUpdate.password" class="field" />
+            <button type="submit" class="btn btn-success" id="button">Update User</button>
+        </form>
+    </div>
+</div>
+
+<div class="margin: 0px 0px 25px 125px;">
+    <ul style="display: inline; list-style-type: none; margin: 0px 0px 25px 225px;">
+        <li style="display: inline; margin: 0px 25px 0px 25px; color: #007bff;"><a [routerLink]="['/customers']"><u> Dashboard </u></a> </li>
+        <li style="display: inline; margin: 0px 25px 0px 25px; color: #007bff;"> | </li>
+        <li style="display: inline; margin: 0px 25px 0px 25px; color: #007bff;"><a [routerLink]="['/checkout']"><u>View Cart</u></a></li>
+        <li style="display: inline; margin: 0px 25px 0px 25px; color: #007bff;"> | </li>
+        <li style="display: inline; margin: 0px 25px 0px 25px; color: #007bff;"><a [routerLink]="['/new/product']"><u>Sell Product</u></a></li>
+        <li style="display: inline; margin: 0px 25px 0px 25px; color: #007bff;"> | </li>
+        <li style="display: inline; margin: 0px 25px 0px 25px; color: #007bff;"><a [routerLink]="['/admin/order']"><u> Place Order</u></a></li>
+    </ul>
+</div>

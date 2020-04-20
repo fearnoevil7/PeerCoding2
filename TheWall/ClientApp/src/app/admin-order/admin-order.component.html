@@ -1,46 +1,46 @@
-<p>admin-order works!</p>
-<button (click)="logOut()" value="Signout">Signout</button>
-<a [routerLink]="['/checkout']"><u>View Cart</u></a>
 
-
-<form (submit)="onFileSelected($event)">
-    <label>Upload Image</label>
-    <input type="file" (change)="onFileSelected($event)" name="Image" >
-    <button type="submit" class="btn btn-success">Upload</button>
-</form>
-<input type="file" (change)="onUpload($event)">
-<br />
-<span style="font-weight: bold; color: green;" *ngIf="progress > 0 && progess < 100" > {{progress}}% </span>
-<span style="font-weight: bold; color: green;" *ngIf="message">{{message}}</span>
-<span *ngIf>{{imageurl}}</span>
-
-
-
-
-<div *ngIf="imageurl">
-    <img [src]="imageurl" [alt]="imageurl" />
-</div>
-
-<div *ngFor="let product of products">
-    <p>Product Name: {{ product.Name }}</p>
-    <p>Availability: {{ product.Quantity }} left</p>
-    <p>Vendor: {{product.Vendor.FirstName}} {{product.Vendor.LastName}}</p>
-</div>
-<form (submit)="addToCart()">
-    <select type="number" name="productId" [(ngModel)]="productId">
-        <option *ngFor="let product of products" [value]="product.ProductId">{{ product.Name }}</option>
-    </select>
-    <label>Quantity</label>
-    <select type="number" name="Quantity" [(ngModel)]="quantity1">
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
-        <option>6</option>
-        <option>7</option>
-    </select>
-    
-    <button type="submit" class="btn btn-success">Upload Product</button>
-</form>
-
+    <section style="margin: 0px 0px 0px 250px;">
+        <section style="display: inline-block;">
+            <section style="display: inline-block; margin: 0px 0px 0px -100px;">
+                <h4 style="margin: 0px 0px 16px 61px;">Add To Cart</h4>
+                <form (submit)="addToCart()">
+                    <span class="fields">Product: </span><select type="number" name="productId" [(ngModel)]="productId">
+                        <option *ngFor="let product of products" [value]="product.ProductId">{{ product.Name }}</option>
+                    </select>
+                    <span class="fields">Quantity: </span><input type="number" name="Quantity" [(ngModel)]="quantity1" style="display: block; width: 250px;" />
+                    <button type="submit" class="btn btn-primary" style="width:100px; font-size:10pt; margin: 12px 0px 13px 150px;">Add To Cart</button>
+                </form>
+                <input style="margin: 7px 0px 25px  0px; display: block; width: 250px;" type="text" name="Name" [(ngModel)]="searchText" placeholder="Search For Product" />
+            </section>
+            <section style="display: inline-block; vertical-align:top; margin:0px 0px 0px 88px;">
+                <h4 style="display: inline-block; margin: 180px 0px 0px 80px"><b>Products</b></h4>
+            </section>
+        </section>
+        <div style="margin: 0px 0px 100px 0px;">
+            <div class="productscontainer">
+                <div class="products" *ngFor="let product of products | filter1 : searchText : 'Name'">
+                    <div *ngIf="product.Quantity > 0">
+                        <br />
+                        <div *ngIf="product.ImageUrl">
+                            <img [src]="product.ImageUrl" [alt]="product.ImageUrl" style="width: 100px; height: 100px; margin: 0px 0px 25px 0px" />
+                        </div>
+                        <br />
+                        <p>{{ product.Name }}</p>
+                        <p>({{ product.Quantity }} left)</p>
+                        <p>Vendor: {{product.Vendor.FirstName}} {{product.Vendor.LastName}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+        <div class="margin: 0px 0px 25px 125px;">
+            <ul style="display: inline; list-style-type: none; margin: 0px 0px 25px 225px;">
+                <li style="display: inline; margin: 0px 25px 0px 25px;"><a [routerLink]="['/edit']"><u> Edit Profile </u></a> </li>
+                <li style="display: inline; margin: 0px 25px 0px 25px; color: #007bff;"> | </li>
+                <li style="display: inline; margin: 0px 25px 0px 25px; color: #007bff;"><a [routerLink]="['/customers']"><u> Dashboard </u></a> </li>
+                <li style="display: inline; margin: 0px 25px 0px 25px; color: #007bff;"> | </li>
+                <li style="display: inline; margin: 0px 25px 0px 25px; color: #007bff;"><a [routerLink]="['/checkout']"><u>View Cart</u></a></li>
+                <li style="display: inline; margin: 0px 25px 0px 25px; color: #007bff;"> | </li>
+                <li style="display: inline; margin: 0px 25px 0px 25px; color: #007bff;"><a [routerLink]="['/new/product']"><u>Sell Product</u></a></li>
+            </ul>
+        </div>

@@ -15,6 +15,7 @@ export class OrderComponent implements OnInit {
   ParsedOrders = [];
   customername: string;
   customer: {};
+  orders: {};
 
   constructor(
     private _httpService: HttpService,
@@ -46,32 +47,38 @@ export class OrderComponent implements OnInit {
     this._route.navigate([""]);
   }
 
+  navigateToShow(id) {
+    this._route.navigate(["/details/order/" + id])
+  }
+
   getOrdersFromService() {
     let observable = this._httpService.getOrders();
     observable.subscribe(data => {
       //console.log("Destringify", data['Orders']['Products']);
+      this.orders = data['Orders'];
       console.log("Orders!!!!!!!", data['Orders']);
-      for (var i = 0; i < data['Orders'].length; i++) {
-        console.log("Destringify Object's products", JSON.parse(data['Orders'][i]['Products']));
-        console.log(data['Orders'][i]);
-        var firststep = JSON.parse(data['Orders'][i]['Products']);
-        console.log("&&&&&&&&Firstep^^^^^^^^", firststep);
-        for (var x = 0; x < JSON.parse(data['Orders'][i]['Products']).length; x++) {
-          console.log("TEEEEEESSTT", JSON.parse(data['Orders'][i]['Products'])[x]);
+      //for (var i = 0; i < data['Orders'].length; i++) {
+      //  console.log("Destringify Object's products", JSON.parse(data['Orders'][i]['Products']));
+      //  console.log(data['Orders'][i]);
+      //  var firststep = JSON.parse(data['Orders'][i]['Products']);
+      //  console.log("&&&&&&&&Firstep^^^^^^^^", firststep);
+      //  for (var x = 0; x < JSON.parse(data['Orders'][i]['Products']).length; x++) {
+      //    console.log("TEEEEEESSTT", JSON.parse(data['Orders'][i]['Products'])[x]);
 
-          this.ordersdeserialized.push(JSON.parse(data['Orders'][i]['Products'])[x]);
-          this.customer = JSON.parse(data['Orders'][i]['Products'])[x]['Customer'];
-          this.customername = JSON.parse(data['Orders'][i]['Products'])[x]['Customer']['FirstName'];
-          console.log("TEEEEEESSTT", this.customername);
-        }
+      //    this.ordersdeserialized.push(JSON.parse(data['Orders'][i]['Products'])[x]);
+      //    this.customer = JSON.parse(data['Orders'][i]['Products'])[x]['Customer'];
+      //    this.customername = JSON.parse(data['Orders'][i]['Products'])[x]['Customer']['FirstName'];
+      //    this.orders = data['Orders'];
+      //    console.log("TEEEEEESSTT", this.customername);
+      //  }
 
-        //this.ParsedOrders.push(JSON.parse(firststep['Test']));
-        //console.log("object", data['Orders'][i]);
+      //  //this.ParsedOrders.push(JSON.parse(firststep['Test']));
+      //  //console.log("object", data['Orders'][i]);
 
-      }
-      console.log("UnpackedOrders", this.ordersdeserialized);
-      console.log("Testing Parsed Orders Array!", this.ParsedOrders);
-      console.log("got our pending orders!", this.ordersdeserialized);
+      //}
+      //console.log("UnpackedOrders", this.ordersdeserialized);
+      //console.log("Testing Parsed Orders Array!", this.ParsedOrders);
+      //console.log("got our pending orders!", this.ordersdeserialized);
 
     })
   }

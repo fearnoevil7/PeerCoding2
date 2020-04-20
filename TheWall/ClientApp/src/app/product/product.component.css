@@ -1,0 +1,17 @@
+
+.container{
+    vertical-align: top;
+    display: inline-block;
+    width: 300px;
+    border: solid black 3px;
+}
+
+.products{
+    display: inline-block;
+    margin: 0px 0px 0px 50px;
+    width: 300px
+}
+
+.fields{
+    display: block;
+}

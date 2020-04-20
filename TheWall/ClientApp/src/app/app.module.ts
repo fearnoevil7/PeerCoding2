@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, Component } from '@angular/core';
+import { NgModule, Component, Pipe, PipeTransform } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -21,7 +21,35 @@ import { AdminOrderComponent } from './admin-order/admin-order.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { OrderComponent } from './order/order.component';
 import { CanActivate } from '@angular/router';
- 
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { Filter1Pipe } from './filter1.pipe';
+import { FilterPipe } from './show-product/filter.pipe';
+import { NewProductComponent } from './new-product/new-product.component';
+import { OrderdetailsComponent } from './orderdetails/orderdetails.component';
+
+//@Pipe({
+//  name: "filter",
+//})
+//class FilterPipe implements PipeTransform {
+//  transform(items: any[], searchText: string, fieldName: string): any[] {
+//    if (!items) { return []; }
+
+//    if (!searchText) { return items; }
+
+//    searchText = searchText.toUpperCase();
+
+//    return items.filter(item => {
+//      if (item && item[fieldName]) {
+//        return item[fieldName].toUpperCase().includes(searchText);
+//      }
+//      return false;
+//    })
+
+//  }
+//}
+
+
+
 export function tokenGrabber() {
   return localStorage.getItem("token");
 }
@@ -41,7 +69,10 @@ export function tokenGrabber() {
     AdminOrderComponent,
     CheckoutComponent,
     OrderComponent,
-
+    Filter1Pipe,
+    FilterPipe,
+    NewProductComponent,
+    OrderdetailsComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -61,6 +92,8 @@ export function tokenGrabber() {
       { path: 'admin/order', component: AdminOrderComponent, canActivate: [AuthGuard] },
       { path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard] },
       { path: 'orders', component: OrderComponent },
+      { path: 'new/product', component: NewProductComponent, canActivate: [AuthGuard] },
+      { path: 'details/order/:id/:ticket', component: OrderdetailsComponent },
     ]),
     JwtModule.forRoot({
       config: {

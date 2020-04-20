@@ -1,0 +1,27 @@
+
+<div class="container">
+    <br />
+    <div class="minicontainer">
+        <p class="header"><u><b>Add a new product!</b></u></p>
+        <br />
+        <form (submit)="sendToCreate()">
+            <span style="margin: 0px 0px 0px 28px;">Name: </span><input class="fields" type="text" name="Name" [(ngModel)]="newProduct.Name" />
+            <span style="margin: 0px 0px 0px 28px;">Upload Product Image: </span><input class="fields" type="file" (change)="onUpload($event)">
+            <span style="margin: 0px 0px 0px 28px;">Description: </span><textarea cols="20" rows="3" class="fields" type="text" name="Description" [(ngModel)]="newProduct.Description"></textarea>
+            <span style="margin: 0px 0px 0px 28px;">Initial Quantity: </span><input class="fields" type="number" name="Quantity" [(ngModel)]="newProduct.Quantity" />
+            <span style="font-weight: bold; color: green;" *ngIf="progress > 0 && progess < 100"> {{progress}}% </span>
+            <span style="font-weight: bold; color: green;" *ngIf="message">{{message}}</span>
+            <br />
+            <button type="submit" class="btn btn-success" style="margin: 0px 0px 25px 100px">Upload Product</button>
+        </form>
+    </div>
+</div>
+<div id="navigation" style="margin: 52px 0px 0px 124px;">
+    <ul style="display: inline; list-style-type: none; margin: 0px 0px 25px 196px;">
+        <li style="display: inline; margin: 0px 25px 0px 25px;"><a [routerLink]="['/edit']"><u> Edit Profile </u></a> </li>
+        <li style="display: inline; margin: 0px 25px 0px 25px; color: #007bff;"> | </li>
+        <li style="display: inline; margin: 0px 25px 0px 25px; color: #007bff;"><a [routerLink]="['/customers']"><u> Dashboard </u></a> </li>
+        <li style="display: inline; margin: 0px 25px 0px 25px; color: #007bff;"> | </li>
+        <li style="display: inline; margin: 0px 25px 0px 25px; color: #007bff;"><a [routerLink]="['/admin/order']"><u> Place Order</u></a></li>
+    </ul>
+</div>

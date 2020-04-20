@@ -11,6 +11,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class DashboardComponent implements OnInit {
   users: any;
   id: {};
+  upackedId: number;
 
   constructor(
     private _httpService: HttpService,
@@ -31,6 +32,9 @@ export class DashboardComponent implements OnInit {
       console.log("*******!!!!!!!!********!!!!!!!!", this.jwtHelper.decodeToken(token).nameid);
       console.log("*******!!!!!!!!********!!!!!!!!", this.jwtHelper.decodeToken(token));
       console.log("*******!!!!!!!!********!!!!!!!!", this.id);
+      this.upackedId = this.id['id'];
+      console.log("*******!!!!!!!!********!!!!!!!!", this.upackedId);
+
       return true;
     } else {
         this.logOut();

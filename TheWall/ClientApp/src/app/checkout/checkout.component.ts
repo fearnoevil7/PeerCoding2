@@ -19,6 +19,8 @@ export class CheckoutComponent implements OnInit {
   tackcart = [];
   CustomerCart: {};
   newOrder: any;
+  chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@!#$%&";
+  randomString = "";
 
   constructor(
     private _httpService: HttpService,
@@ -32,7 +34,7 @@ export class CheckoutComponent implements OnInit {
     this.getUsersFromService();
     this.getProductsFromService();
     this.currentUser();
-    this.newOrder = { UserId: null, Products: null };
+    this.newOrder = { UserId: null, Products: null, Ticket: null };
   }
 
   isUserAuthenticated() {
@@ -95,6 +97,11 @@ export class CheckoutComponent implements OnInit {
   }
 
   placeOrder() {
+    for (var q = 0; q < Math.floor(Math.random() * 16) + 7; q++) {
+      this.randomString += this.chars.charAt(Math.floor(Math.random() * this.chars.length));
+    }
+
+    this.newOrder['Ticket'] = this.randomString;
     this.newOrder['UserId'] = this.userid;
     this.newOrder['Products'] = JSON.stringify(this.shoppingcart);
     var shoppingCart = JSON.parse(`{"ShoppingCart" : ${this.newOrder['Products']}}`);

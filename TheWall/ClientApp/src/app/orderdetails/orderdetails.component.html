@@ -1,0 +1,16 @@
+
+<h1 style="margin: 0px 0px 50px 50px"><b><u>Order #{{ticketnumber}}</u></b></h1>
+<section>
+    <div style="display: inline-block; margin: 25px 0px 25px 50px; font-size: 10pt;" *ngFor="let item of orderdeserialized; let i = index">
+        <h6 style="margin: 0px 0px 0px 79px"><u>Product # {{i + 1}}</u></h6>
+        <div style="margin: 0px 0px 0px 34px;">
+            <p style="margin: 25px 0px 0px 0px">Customer Name: {{ item.Customer.FirstName }} {{ item.Customer.LastName }}</p>
+            <p>Product Name: {{ item.Product.Name }}</p>
+            <p>Product Quantity: {{ item.Product.Quantity }}</p>
+            <p>Vendor Name: {{ item.Product.Vendor.FirstName }} {{ item.Product.Vendor.LastName }}</p>
+        </div>
+        <div style="margin: 34px 0px 75px 77px" *ngIf="item.Product.ImageUrl">
+            <img [src]="item.Product.ImageUrl" [alt]="item.Product.ImageUrl" style="width: 100px; height: 100px; margin: 0px 0px 25px 0px" />
+        </div>
+    </div>
+</section>

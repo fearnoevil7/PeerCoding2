@@ -1,0 +1,32 @@
+
+.container {
+  vertical-align: top;
+  display: inline-block;
+  width: 400px;
+  height: 664px;
+  border: solid black 3px;
+  margin: 100px 0px 100px 425px;
+}
+
+.products {
+  display: inline-block;
+  margin: 0px 0px 0px 50px;
+  width: 300px
+}
+
+.fields {
+  display: block;
+  margin: 0px 0px 25px 28px;
+}
+
+.header{
+    margin: 43px 0px 0px 52px;
+}
+
+.fieldname{
+    margin: 0px 28px 0px 0px;
+}
+
+.minicontainer{
+    margin: 0px 0px 0px 52px;
+}

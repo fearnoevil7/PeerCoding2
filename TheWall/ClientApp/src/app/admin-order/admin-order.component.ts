@@ -135,6 +135,8 @@ export class AdminOrderComponent implements OnInit {
     observable.subscribe(data => {
       console.log(data);
       this._route.navigate(["admin/order"]);
+      this._route.navigate(["admin/order"]);
+      this.ReturnToPage();
       //this.CustomerCart.push({ productid: this.productId, quantity: this.quantity1, vendorId: data['VendorId'], lastName: data['VendorLastName'], firstName: data['VendorFirstName'], email: data['VendorEmail'] });
       //console.log("****CustomerCartLog********");
       //console.log(this.CustomerCart);
@@ -202,6 +204,10 @@ export class AdminOrderComponent implements OnInit {
       //}
 
     });
+  }
+
+  ReturnToPage() {
+    this._route.navigate(["admin/order"]);
   }
 
 }

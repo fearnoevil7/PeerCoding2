@@ -52,6 +52,8 @@ namespace TheWall.Controllers
                 {
                     UserId = order.UserId,
                     Products = order.Products,
+                    Ticket = order.Ticket,
+                    CustomerName = user.FirstName + " " + user.LastName, 
                 };
                 dbContext.Orders.Add(newOrder);
                 Dictionary<int, string> CustomerCart = new Dictionary<int, string>();
@@ -68,7 +70,7 @@ namespace TheWall.Controllers
             }
         }
 
-        [Authorize]
+
         [HttpGet]
         [Route("index")]
         public string Index()
@@ -88,6 +90,28 @@ namespace TheWall.Controllers
                 });
             }
         }
+
+
+        [HttpGet]
+        [Route("show/{orderid}")]
+        public string Show(int orderid)
+        {
+            Order order = dbContext.Orders.Include(v => v.Customer).FirstOrDefault(w => w.OrderId == orderid);
+            var Order1 = new { Order = order };
+            try
+            {
+                return JsonConvert.SerializeObject(Order1);
+            }
+            catch
+            {
+                return JsonConvert.SerializeObject(Order1, new JsonSerializerSettings()
+                {
+                    PreserveReferencesHandling = PreserveReferencesHandling.Objects,
+                    Formatting = Formatting.Indented,
+                });
+            }
+        }
+
 
         [Authorize]
         [HttpGet]
