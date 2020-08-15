@@ -1,1 +1,34 @@
-<p>show-product works!</p>
+<app-nav-menu></app-nav-menu>
+<div class="ComponentBanner">
+    <h2 style="color: #fdbe02; font-weight: bold; margin: 0px 0px 16px 52px;">ETrade</h2>
+    <h2 style="color: #071013; margin: 0px 0px 7px 52px;">Single Product</h2>
+</div>
+<div style="margin: 70px 0px 0px 250px;" >
+    <div style="display: inline-block; vertical-align: top">
+        <img [src]="current_product.ImageUrl" />
+    </div>
+    <div style="display: inline-block; margin: 0px 0px 0px 43px; ">
+        <h1>{{current_product.Name}}</h1>
+        <h3>${{current_product.Price}}</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, porro.</p>
+        <div>           
+            <button class="quantityAdjusterBtn" (click)="adjustQuantity(ToDecrement)" >-</button>
+            <button class="quantityAdjusterBtn" style="margin: 0px 7px 0px 7px;">{{desiredquantity}}</button>
+            <button class="quantityAdjusterBtn" (click)="adjustQuantity(ToIncrement)" >+</button>
+            <form style="display: inline-block;" (submit)="addToCart(current_product.ProductId)">
+                <input type="hidden" name="productId" [value]="current_product.ProductId" [(ngModel)]="productId" />
+                <button class="btn btn-warning addToCartBtn"><fa name="shopping-cart"></fa></button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="infoSection">
+    <ul>
+        <li>Description</li>
+        <li>Additional Information</li>
+        <li>Reviews</li>
+    </ul>
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim debitis, facere similique fuga repudiandae itaque inventore minus quos hic non provident a voluptate? Accusantium dolores architecto consequatur facere, aliquid cum excepturi vitae molestias ab. Culpa numquam nobis beatae est dolore. </p>
+</div>

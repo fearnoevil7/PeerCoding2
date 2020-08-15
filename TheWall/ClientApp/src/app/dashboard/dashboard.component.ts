@@ -11,7 +11,11 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class DashboardComponent implements OnInit {
   users: any;
   id: {};
-  upackedId: number;
+  unpackedId: number;
+  products = [];
+  mostExpensiveItem = 0;
+  lowestPricedItem = 0;
+  CurrentPageUserIsOn = "Dashboard";
 
   constructor(
     private _httpService: HttpService,
@@ -23,6 +27,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.isUserAuthenticated();
     this.getUsersFromService();
+    this.getProductsFromService();
   }
 
   isUserAuthenticated() { //method of authenticating with webtoken directly in component.ts file
@@ -32,8 +37,8 @@ export class DashboardComponent implements OnInit {
       console.log("*******!!!!!!!!********!!!!!!!!", this.jwtHelper.decodeToken(token).nameid);
       console.log("*******!!!!!!!!********!!!!!!!!", this.jwtHelper.decodeToken(token));
       console.log("*******!!!!!!!!********!!!!!!!!", this.id);
-      this.upackedId = this.id['id'];
-      console.log("*******!!!!!!!!********!!!!!!!!", this.upackedId);
+      this.unpackedId = this.id['id'];
+      console.log("*******!!!!!!!!********!!!!!!!!", this.unpackedId);
 
       return true;
     } else {
@@ -60,6 +65,32 @@ export class DashboardComponent implements OnInit {
     observable.subscribe(data => {
       console.log("User successfully deleted!", data);
       this._route.navigate(["customers"]);
+    })
+  }
+  getProductsFromService() {
+    let observable = this._httpService.getProducts();
+    observable.subscribe(data => {
+      this.products = data['Products'];
+
+      //this.totalRecords = data['Products'].length;
+
+
+      console.log("Got our products from service!", this.products);
+      for (var x = 0; x < data['Products'].length; x++) {
+        console.log("test");
+        if (data['Products'][x]['Price'] > this.mostExpensiveItem) {
+          this.mostExpensiveItem = data['Products'][x]['Price'];
+        }
+        if (data['Products'][x]['Price'] < this.lowestPricedItem) {
+          this.lowestPricedItem = data['Products'][x]['Price'];
+        }
+      }
+      console.log("^^^^^^^^^^^^^^", this.lowestPricedItem);
+      console.log("^^^^^^^^^^^^^^", this.mostExpensiveItem);
+      window.localStorage.setItem("minPrice", this.lowestPricedItem.toString());
+      window.localStorage.setItem("maxPrice", this.mostExpensiveItem.toString());
+      console.log("^^^^^^^^^^^^^^", parseFloat(window.localStorage.getItem("minPrice")));
+      console.log("^^^^^^^^^^^^^^", parseFloat(window.localStorage.getItem("maxPrice")));
     })
   }
 

@@ -1,17 +1,123 @@
-<div style="margin: 0px 0px 0px 100px;">
-    <h1>Hello, world!</h1>
-    <p>Welcome to your new single-page application, built with:</p>
-    <ul>
-        <li><a href='https://get.asp.net/'>ASP.NET Core</a> and <a href='https://msdn.microsoft.com/en-us/library/67ef8sbd.aspx'>C#</a> for cross-platform server-side code</li>
-        <li><a href='https://angular.io/'>Angular</a> and <a href='http://www.typescriptlang.org/'>TypeScript</a> for client-side code</li>
-        <li><a href='http://getbootstrap.com/'>Bootstrap</a> for layout and styling</li>
-    </ul>
-    <p>To help you get started, we've also set up:</p>
-    <ul>
-        <li><strong>Client-side navigation</strong>. For example, click <em>Counter</em> then <em>Back</em> to return here.</li>
-        <li><strong>Angular CLI integration</strong>. In development mode, there's no need to run <code>ng serve</code>. It runs in the background automatically, so your client-side resources are dynamically built on demand and the page refreshes when you modify any file.</li>
-        <li><strong>Efficient production builds</strong>. In production mode, development-time features are disabled, and your <code>dotnet publish</code> configuration automatically invokes <code>ng build</code> to produce minified, ahead-of-time compiled JavaScript files.</li>
-    </ul>
-    <p>The <code>ClientApp</code> subdirectory is a standard Angular CLI application. If you open a command prompt in that directory, you can run any <code>ng</code> command (e.g., <code>ng test</code>), or use <code>npm</code> to install extra packages into it.</p>
+<style>
 
+
+    .categories-container {
+        display: inline-block;
+        position: relative;
+        margin: 0px 16px 0px 16px;
+    }
+
+    .categories-img {
+        transition: all 1s linear;
+        width: 196px;
+        height: 196px;
+    }
+
+    .categories-container:hover img {
+        opacity: 0.5;
+    }
+
+    .categories-link {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        text-decoration: none;
+        padding: 0.2rem 3rem 0.2rem 0.2rem;
+        background: #fff;
+        color: #071013;
+        clip-path: polygon(0 0, 80% 0, 100% 100%, 0 100%);
+        opacity: 0;
+        transition: all 1s linear;
+    }
+
+    .categories-container:hover a {
+        opacity: 1;
+    }
+
+    .categories-link:hover {
+        color: rgba(0, 0, 0, 0.1);
+    }
+
+    VCL:hover {
+        color: #071013;
+    }
+</style>
+<app-nav-menu></app-nav-menu>
+<div class="HomeBanner">
+    <h2 style="color: #071013; font-weight: bold; margin: 0px 0px 16px 52px;">Buy</h2>
+    <h2 style="color: #071013; margin: 0px 0px 7px 52px;">Sell Trade</h2>
+    <small style="display: block; margin: 0px 0px 3px 52px;">Please sign in!</small>
+    <button class="btn btn-warning" style="margin: 0px 0px 0px 52px;" [routerLink]="['/admin/order']">View Collection</button>
+</div>
+<div style=" text-align: center; margin: 88px 0px 0px 0px;">
+    <div style="display: inline-block; margin: 0px 88px 106px 0px;">
+        <div style="margin: 0px 0px 10px 143px;" class="HomePageFontAwesomeIcon">
+            <fa style="transform: scale(2);" name="truck"></fa>
+        </div>
+        <h4 style="color: #071013;">Free Shipping</h4>
+        <p style="color: rgba(0, 0, 0, 0.1); font-size: 16pt;">free shipping on all order over 100.00</p>
+    </div>
+    <div style="display: inline-block; margin: 0px 88px 0px 0px;">
+        <div style="margin: 0px 0px 10px 143px;" class="HomePageFontAwesomeIcon">
+            <fa style="transform: scale(2);" name="phone"></fa>
+        </div>
+        <h4 style="color: #071013;">online support 24/7</h4>
+        <p style="color: rgba(0, 0 , 0, 0.1); font-size: 16pt;">we will assist you with your inquiries</p>
+    </div>
+    <div style="display: inline-block;">
+        <div style="margin: 0px 0px 10px 115px;" class="HomePageFontAwesomeIcon">
+            <fa style="transform: scale(2);" name="dollar"></fa>
+        </div>
+        <h4 style="color: #071013;">Money Back Guarantee</h4>
+        <p style="color: rgba(0, 0 , 0, 0.1); font-size: 16pt;">free 100% refund for 30 days</p>
+    </div>
+</div>
+<div style="margin: 0px 0px 88px 38px;">
+    <div style="display: inline-block; margin: 0px 0px 0px 43px; vertical-align: top;">
+        <h6>PRODUCT CATEGORIES</h6>
+        <p style="width: 286px; color: #7f7f7f;">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem, repellendus! </p>
+        <a [routerLink]="['/admin/order']" class="VCL">View All Categories</a>
+        <div class="underlineDecoration"></div>
+    </div>
+    <div style="display: inline-block;">
+        <div class="categories-container" style="        display: inline-block;
+">
+            <img class="categories-img" src="../../assets/pageBackground/clothingrack.jpg" />
+            <a [routerLink]="['/admin/order']" class="categories-link" href="">
+                <h6>Clothing</h6>
+                <p style="color: #fdbe02;"> {{numOfClothingItems}} items</p>
+            </a>
+        </div>
+        <div class="categories-container" style="        display: inline-block; ">
+            <img class="categories-img" src="../../assets/pageBackground/electronics123.jpg" />
+            <a [routerLink]="['/admin/order']" class="categories-link" href="">
+                <h6>Electronics</h6>
+                <p style="color: #fdbe02;"> {{numOfElectronics}} items</p>
+            </a>
+        </div>
+        <div class="categories-container" style="        display: inline-block; ">
+            <img class="categories-img" src="../../assets/pageBackground/jewlerybcgpage.jpg" />
+            <a [routerLink]="['/admin/order']" class="categories-link" href="">
+                <h6>Jewelry</h6>
+                <p style="color: #fdbe02;"> {{numOfJewlery}} items</p>
+            </a>
+        </div>
+        <div class="categories-container">
+            <img class="categories-img" src="../../assets/pageBackground/sports-equipmentbcg.jpg" />
+            <a [routerLink]="['/admin/order']" class="categories-link" href="">
+                <h6>More</h6>
+                <p style="color: #fdbe02;"> view items</p>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="HomeBanner2">
+    <p style="        color: #fff;
+        font-weight: bold;
+        margin: 79px 0px 16px 52px;
+">A VARIETY OF ITEM FROM A VARIETY OF PEOPLE</p>
+    <p style="        color: #fff;
+        margin: 0px 0px 7px 52px;
+">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, iure? </p>
+    <a style="margin: 0px 0px 0px 52px; color: #fdbe02;"><u>View Collection</u></a>
 </div>

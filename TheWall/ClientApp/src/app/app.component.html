@@ -1,4 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Mali:400,700" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
 <body>
-  <app-nav-menu></app-nav-menu>
-  <router-outlet></router-outlet>
+
+    <router-outlet></router-outlet>
+    <div style="align-items: center; justify-content: center; text-align: center;">
+        <h3 style="margin: 70px 0px 7px 0px;">Featured Products</h3>
+        <small>Our 6 most popular products currently</small>
+        <ul style="        list-style-type: none;
+">
+            <li class="productsMiniContainer" *ngFor="let product2 of popular_Products" style="display: inline-block;  padding: 43px; transform: scale(1); margin: 106px 88px 0px 79px;">
+                <div *ngIf="product2.ImageUrl">
+                    <img [src]="product2.ImageUrl" [alt]="product2.ImageUrl" style="width: 100px; height: 100px; margin: 0px 0px 25px 0px; border-radius: 7px;" />
+                </div>
+                <br />
+                <br />
+                <br />
+                <a style="color: #fdbe02;" [routerLink]="['/app/product/show', product2.ProductId]" >{{ product2.Name }}</a>
+                <p>${{product2.Price}}</p>
+                <p>({{ product2.Quantity }} left)</p>
+                <form class="cartForm" (submit)="addToCart(product2.ProductId)">
+                    <input type="hidden" name="productId" [value]="product2.ProductId" [(ngModel)]="productId" />
+                    <input class="fields" type="number" name="Quantity" placeholder="Quantity" [(ngModel)]="quantity1" />
+                    <button style="vertical-align: top;" class="btn btn-warning cartButton"><fa name="shopping-cart"></fa></button>
+                </form>
+            </li>
+        </ul>
+    </div>
+    <div style="justify-content: center; align-items: center; text-align: center; margin: 70px 0px 70px 0px">
+        <h2>NEWSLETTER</h2>
+        <p style="        color: #e5e5e5;
+">Sign up for our news letter and recieve our latest offers!</p>
+        <div style="        width: 790px;
+        margin: 0px 0px 0px 259px;">
+            <div class="input-group">
+                <input type="text" class="form-control" />
+                <div class="input-group-append" style="        align-items: center;
+        justify-content: center;
+        background-color: rgba(0, 0, 0, 0.1);
+        padding: 7px;">
+                    <fa name="envelope"></fa>
+                </div>
+            </div>
+        </div>
+        <br />
+        <button style="padding: 7px;" class="btn btn-warning">Subscribe</button>
+    </div>
+    <div style="background-color: #071013;">
+        <fa style="color: #fdbe02; display: inline-block; vertical-align: top; margin: 97px 52px 0px 50px; transform: scale(3);" name="truck"></fa>
+        <div style="display: inline-block; width: 340px; margin: 88px 0px 0px 0px;">
+            <div style="display: inline-block;">
+                <h3 style="display: inline-block; color: #fff;">FREE SHIPPING</h3>
+                <p style="color: #5b646b;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, pariatur. </p>
+            </div>
+        </div>
+        <fa style="color: #fdbe02; display: inline-block; vertical-align: top; margin: 97px 52px 0px 0px; transform: scale(3);" name="dollar"></fa>
+        <div style="display: inline-block; width: 340px; margin: 88px 0px 0px 0px;">
+            <h3 style="display: inline-block; color: #fff;">PRICE PROMISE</h3>
+            <p style="color:#5b646b;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, pariatur. </p>
+        </div>
+        <fa style="color: #fdbe02; display: inline-block; vertical-align: top; margin: 94px 52px 0px 0px; transform: scale(3);" name="shield"></fa>
+        <div style="display: inline-block; width: 340px; margin: 88px 0px 88px 0px;">
+            <h3 style="display: inline-block; color: #fff;">LIFETIME WARRANTY</h3>
+            <p style="color:#5b646b;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, pariatur. </p>
+        </div>
+    </div>
+    <div style="background-color: #333333;">
+        <br />
+        <br />
+        <br />
+        <div style="text-align: center; margin: 0px 0px 0px 43px;">
+            <span style="border: 3px solid #fdbe02; color: #fdbe02; font-size: 18pt; padding: 7px;">ETRADE</span>
+        </div>
+        <div style="text-align: center; margin: 34px 0px 34px 0px">
+            <ul style="list-style-type: none;">
+                <li class="emblemIcon emblemIconMargin2"><fa name="facebook"></fa></li>
+                <li class="emblemIcon emblemIconMargin2"><fa name="twitter"></fa></li>
+                <li class="emblemIcon emblemIconMargin2"><fa name="google-plus"></fa></li>
+                <li class="emblemIcon emblemIconMargin2"><fa name="instagram"></fa></li>
+                <li class="emblemIcon emblemIconMargin2"><fa name="youtube"></fa></li>
+            </ul>
+        </div>
+        <div style="text-align: center;">
+            <p style="color: #6c757d; width: 900px; margin: 0px 0px 25px 205px;">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel quas itaque minima rem esse aut eos inventore numquam nostrum placeat?
+            </p>
+        </div>
+        <div style="text-align: center;">
+            <ul style="list-style-type: none;">
+                <li class="emblemIcon emblemIconMargin"><fa name="map"></fa></li>
+                <li style="display: inline-block;">123 main street, Dallas</li>
+                <li class="emblemIcon emblemIconMargin"><fa name="phone"></fa></li>
+                <li style="display: inline-block;">phone : + (214) 111 2222</li>
+                <li class="emblemIcon emblemIconMargin"><fa name="envelope"></fa></li>
+                <li style="display: inline-block;">email : eamil@email.com </li>
+            </ul>
+        </div>
+        <br />
+        <br />
+        <br />
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
+</html>

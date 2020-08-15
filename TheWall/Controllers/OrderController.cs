@@ -42,6 +42,7 @@ namespace TheWall.Controllers
             {
                 //List<object> Products = new List<object>();
                object products = JsonConvert.DeserializeObject(order.Products);
+
                 Console.WriteLine("!!!!!!!%%%%%%%%products about to placed in orders! deserialized!!!!!!!!!");
                 Console.WriteLine(products);
                 Console.WriteLine("!!!!!!!%%%%%%%%products about to placed in orders! deserialized!!!!!!!!!");
@@ -121,14 +122,18 @@ namespace TheWall.Controllers
             Product product = dbContext.Products.Include(x => x.Vendor).FirstOrDefault(product1 => product1.ProductId == productid);
             if (product.Quantity >= quantity)
             {
+                Console.WriteLine("*******%%%%%%%% product quantity check!!!! %%%%%%*******");
+                Console.WriteLine(product.Quantity);
                 Random rando = new Random();
                 int CartItemId = rando.Next(1, 10000);
                 User user = dbContext.Users.FirstOrDefault(qz => qz.UserId == userid);
-                if (user.ShoppingCart == null)
+                if (user.ShoppingCart == null || user.ShoppingCart.Length == 0)
                 {
-                    product.Quantity -= quantity;
+                    
+                    Console.WriteLine("*******%%%%%%%% product quantity check!!!! %%%%%%*******");
+                    Console.WriteLine(product.Quantity);
                     Dictionary<int, string> CustomerCart = new Dictionary<int, string>();
-                    var CartDetails = new { ProductId = product.ProductId, Name = product.Name , Quantity = quantity, VendorEmail = product.Vendor.Email, VendorFirstName = product.Vendor.FirstName, VendorLastName = product.Vendor.LastName, CustomerID = user.UserId, CustomerEmail = user.Email, CustomerFirstName = user.FirstName, CustomerLastName = user.LastName, Product = product, Customer = user , CartItemId = CartItemId};
+                    var CartDetails = new { ProductId = product.ProductId, Name = product.Name , Quantity = quantity, Price = product.Price, VendorEmail = product.Vendor.Email, VendorFirstName = product.Vendor.FirstName, VendorLastName = product.Vendor.LastName, CustomerID = user.UserId, CustomerEmail = user.Email, CustomerFirstName = user.FirstName, CustomerLastName = user.LastName, Product = product, Customer = user , CartItemId = CartItemId};
                     //var CartDetails2 = new { Product: product }
                     var SerializedCartDetails = JsonConvert.SerializeObject(CartDetails);
                     CustomerCart.Add(CartItemId, SerializedCartDetails);
@@ -137,16 +142,23 @@ namespace TheWall.Controllers
                     //var Cart = JsonConvert.SerializeObject(ticket);
                     var Cart = JsonConvert.SerializeObject(CustomerCart);
                     user.ShoppingCart = Cart;
+
+                    //product.AmountSold += quantity;
+                    product.Quantity -= quantity;
                     dbContext.SaveChanges();
+                    Console.WriteLine("*******%%%%%%%% product quantity check!!!! %%%%%%*******");
+                    Console.WriteLine(product.Quantity);
                     var success = new { message = "The product: " + product.Name + " successfully added to cart!", ProductId = product.ProductId, OrderQuantity = quantity, ProductInventory = product.Quantity, VendorId = product.Vendor.UserId, VendorEmail = product.Vendor.Email, VendorFirstName = product.Vendor.FirstName, VendorLastName = product.Vendor.LastName, Cart = CustomerCart };
                     return JsonConvert.SerializeObject(success);
                 }
                 else
                 {
-                    product.Quantity -= quantity;
+                    
+                    Console.WriteLine("*******%%%%%%%% product quantity check!!!! %%%%%%*******");
+                    Console.WriteLine(product.Quantity);
                     var CurrentUserCart = JsonConvert.DeserializeObject<Dictionary<int, string>>(user.ShoppingCart);
                     Console.WriteLine(CurrentUserCart);
-                    var CartDetails = new { ProductId = product.ProductId, Name = product.Name, Quantity = quantity, VendorEmail = product.Vendor.Email, VendorFirstName = product.Vendor.FirstName, VendorLastName = product.Vendor.LastName, CustomerID = user.UserId, CustomerEmail = user.Email, CustomerFirstName = user.FirstName, CustomerLastName = user.LastName, Product = product, Customer = user, CartItemId = CartItemId };
+                    var CartDetails = new { ProductId = product.ProductId, Name = product.Name, Quantity = quantity, Price = product.Price, VendorEmail = product.Vendor.Email, VendorFirstName = product.Vendor.FirstName, VendorLastName = product.Vendor.LastName, CustomerID = user.UserId, CustomerEmail = user.Email, CustomerFirstName = user.FirstName, CustomerLastName = user.LastName, Product = product, Customer = user, CartItemId = CartItemId };
                     var SerializedCartDetails = JsonConvert.SerializeObject(CartDetails);
                     //int newCartItemId = rando.Next(1, 10000);
 
@@ -175,7 +187,10 @@ namespace TheWall.Controllers
                         Console.WriteLine("*******CurrentUserCart*******", CurrentUserCart);
                         var Cart1 = JsonConvert.SerializeObject(CurrentUserCart);
                         user.ShoppingCart = Cart1;
+                        product.Quantity -= quantity;
                         dbContext.SaveChanges();
+                        Console.WriteLine("*******%%%%%%%% product quantity check!!!! %%%%%%*******");
+                        Console.WriteLine(product.Quantity);
                         var success = new { message = "The product: " + product.Name + " successfully added to cart!", ProductId = product.ProductId, OrderQuantity = quantity, ProductInventory = product.Quantity, VendorId = product.Vendor.UserId, VendorEmail = product.Vendor.Email, VendorFirstName = product.Vendor.FirstName, VendorLastName = product.Vendor.LastName, Cart = CurrentUserCart, Test16 = test16 };
                         return JsonConvert.SerializeObject(success);
                     }
@@ -191,7 +206,7 @@ namespace TheWall.Controllers
 
         [Authorize]
         [HttpGet]
-        [Route("editCart/{userid}/{keynum}/{productid}/{quantity}")]
+        [Route("editCart/delete/{userid}/{keynum}/{productid}/{quantity}")]
         public string ConfigureCart(int keynum, int userid, int productid, int quantity )
         {
             Dictionary<int, string> newCustomerCart = new Dictionary<int, string>();
@@ -214,8 +229,56 @@ namespace TheWall.Controllers
             Product product = dbContext.Products.FirstOrDefault(p => p.ProductId == productid);
             product.Quantity += quantity;
             dbContext.SaveChanges();
+            Console.WriteLine("*******%%%%%%%% product quantity check!!!! %%%%%%*******");
+            Console.WriteLine(product.Quantity);
             var success = new { Test = newCustomerCart };
             return JsonConvert.SerializeObject(success);
         }
+        [Authorize]
+        [HttpPost]
+        [Route("editCart/{userid}/{keynum}/{productid}/{IncrementOrNah}")]
+        public string EditQuantity(int keynum, int userid, int productid, int quantity, bool IncrementOrNah, UpdatedCart myCart)
+        {
+            Dictionary<int, string> newCustomerCart = new Dictionary<int, string>();
+            User user = dbContext.Users.FirstOrDefault(u => u.UserId == userid);
+            
+            Console.WriteLine(myCart.cart);
+            string packagedCart = JsonConvert.SerializeObject(newCustomerCart);
+            user.ShoppingCart = myCart.cart;
+            Console.WriteLine(user.ShoppingCart);
+            Console.WriteLine("To increment or not to increment?....", IncrementOrNah);
+            Product product = dbContext.Products.FirstOrDefault(j => j.ProductId == productid);
+            if(IncrementOrNah == true)
+            {
+                product.Quantity += 1;
+            }
+            else if(IncrementOrNah == false)
+            {
+                product.Quantity -= 1;
+            }
+
+            Console.WriteLine("Quantity adjusted product", product);
+
+
+            dbContext.SaveChanges();
+
+            //foreach (KeyValuePair<int, string> entry in JsonConvert.DeserializeObject<Dictionary<int, string>>(user.ShoppingCart))
+            //{
+            //    //newCustomerCart.Add(entry.Key, entry.Value);
+            //    if(entry.Key == keynum)
+            //    {
+            //        var CartDetails = JsonConvert.DeserializeObject(entry.Value);
+            //        Console.WriteLine(entry.Key + "%%%%%%%^^^^^^^^ EditQuantityRouteCheck2 ^^^^^^^%%%%%%% " + CartDetails);
+            //        Console.WriteLine(entry.Key + "%%%%%%%^^^^^^^^ EditQuantityRouteCheck ^^^^^^^%%%%%%% " + entry.Value);
+            //    }
+            //}
+
+
+
+            var success = new { ShoppingCartTest = user.ShoppingCart, ProductTest = product, BooleanTest = IncrementOrNah };
+            return JsonConvert.SerializeObject(success);
+
+        }
+
     }
 }

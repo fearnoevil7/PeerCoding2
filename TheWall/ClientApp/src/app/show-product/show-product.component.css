@@ -1,0 +1,47 @@
+.ComponentBanner {
+  min-height: calc(100vh - 70px);
+  background: url("../../assets/pageBackground/singleBcg.jpeg");
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  opacity: 0.7;
+  text-align: center;
+  padding: 124px 0px 52px 0px;
+}
+
+.quantityAdjusterBtn {
+  background-color: transparent;
+  border: solid 2px #071013;
+  border-radius: 5px;
+  padding: 14px;
+}
+
+  .quantityAdjusterBtn:hover {
+    background-color: rgba(0, 0, 0, .1)
+  }
+
+
+.addToCartBtn {
+  transform: scale(1.4);
+  margin: 0px 0px 0px 37px;
+  height: 40px;
+}
+
+.infoSection {
+  background-color: #e9ecef;
+  border-radius: .3rem;
+  text-align: center;
+  width: 900px;
+  margin: 70px 0px 0px 200px;
+  padding: 34px;
+}
+
+.infoSection ul {
+    list-style-type: none;
+}
+
+.infoSection ul li {
+    display: inline-block;
+    margin: 0px 0px 0px 70px;
+}

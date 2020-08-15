@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, Component, Pipe, PipeTransform } from '@angular/core';
+import { NgModule, Component, Pipe, PipeTransform, Directive, ErrorHandler  } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -15,17 +15,29 @@ import { from } from 'rxjs';
 import { HttpService } from './http.service';
 import { AuthGuard } from './auth-guard.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ShowProductComponent } from './show-product/show-product.component';
 import { EditComponent } from './edit/edit.component';
 import { ProductComponent } from './product/product.component';
 import { AdminOrderComponent } from './admin-order/admin-order.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { OrderComponent } from './order/order.component';
 import { CanActivate } from '@angular/router';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+
+//import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+
 import { Filter1Pipe } from './filter1.pipe';
 import { FilterPipe } from './show-product/filter.pipe';
 import { NewProductComponent } from './new-product/new-product.component';
 import { OrderdetailsComponent } from './orderdetails/orderdetails.component';
+import { EditProductComponent } from './edit-product/edit-product.component';
+import { PaginationDirective } from './pagination.directive';
+import { PaginationDirective2 } from './admin-order/pagination2.directive';
+import { Ng5SliderModule } from 'ng5-slider';
+
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 //@Pipe({
 //  name: "filter",
@@ -69,15 +81,22 @@ export function tokenGrabber() {
     AdminOrderComponent,
     CheckoutComponent,
     OrderComponent,
+    ShowProductComponent,
     Filter1Pipe,
     FilterPipe,
     NewProductComponent,
     OrderdetailsComponent,
+    EditProductComponent,
+    PaginationDirective,
+    PaginationDirective2,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    Ng5SliderModule,
+    AngularFontAwesomeModule,
+    NgbModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
@@ -85,8 +104,7 @@ export function tokenGrabber() {
       { path: 'registration', component: RegistrationComponent },
       { path: 'login', component: LoginComponent },
       { path: 'customers', component: DashboardComponent, canActivate: [AuthGuard] },  //method of authenticating with webtoken using Auth-Guard.service.ts
-
-
+      { path: 'app/product/show/:id', component: ShowProductComponent, canActivate: [AuthGuard] },
       { path: 'edit', component: EditComponent, canActivate: [AuthGuard] },
       { path: 'products', component: ProductComponent, canActivate: [AuthGuard] },
       { path: 'admin/order', component: AdminOrderComponent, canActivate: [AuthGuard] },
@@ -94,6 +112,7 @@ export function tokenGrabber() {
       { path: 'orders', component: OrderComponent },
       { path: 'new/product', component: NewProductComponent, canActivate: [AuthGuard] },
       { path: 'details/order/:id/:ticket', component: OrderdetailsComponent },
+      { path: 'app/product/edit/:id', component: EditProductComponent, canActivate: [AuthGuard] }
     ]),
     JwtModule.forRoot({
       config: {
@@ -102,6 +121,9 @@ export function tokenGrabber() {
         blacklistedRoutes: []
       }
     })
+  ],
+  exports: [
+    PaginationDirective
   ],
   providers: [
     HttpService,

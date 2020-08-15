@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
       console.log("User successfully signed in!", data);
       window.localStorage.setItem("token", data["Token"]);
       console.log("locally stored token!!!!!!!", window.localStorage.getItem("token"));
+      window.localStorage.setItem("admin-order-killswitch", 'false');
       
       this.login = { email: "", password: "" };
       this.goToDashboard();

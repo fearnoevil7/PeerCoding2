@@ -2,38 +2,47 @@
   <nav
     class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
   >
-    <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']">ECommerce</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target=".navbar-collapse"
-        aria-label="Toggle navigation"
-        [attr.aria-expanded]="isExpanded"
-        (click)="toggle()"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div
-        class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
-        [ngClass]="{ show: isExpanded }"
-      >
-          <ul class="navbar-nav flex-grow">
-              <li class="nav-item" [routerLinkActive]="['link-active']">
-                  <a class="nav-link text-dark" [routerLink]="['/registration']">Registration</a>
-              </li>
-              <li class="nav-item" [routerLinkActive]="['link-active']">
-                  <a class="nav-link text-dark" [routerLink]="['/login']">Login</a>
-              </li>
-              <li class="nav-item" [routerLinkActive]="['link-active']">
-                  <a class="nav-link text-dark" [routerLink]="['/orders']">View Orders</a>
-              </li>
-              <li class="nav-item" [routerLinkActive]="['link-active']">
-                  <a class="nav-link text-dark" (click)="logOut()">Logout</a>
-              </li>
-          </ul>
+      <div style=" height: 70px; margin: 52px 0px 0px 0px;">
+          <div class="navBar">
+              <ul>
+                  <li><div><a *ngIf="CurrentPageLandedOn != 'EditProfile'" [routerLink]="['/edit']"> Edit Profile </a><a *ngIf="CurrentPageLandedOn == 'EditProfile'" class="NavUnderline" [routerLink]="['/edit']"> Edit Profile </a></div></li>
+                  <li><div><a *ngIf="CurrentPageLandedOn == 'Dashboard'" class="NavUnderline" [routerLink]="['/customers']"> Dashboard </a><a *ngIf="CurrentPageLandedOn != 'Dashboard'" [routerLink]="['/customers']"> Dashboard </a></div></li>
+                  <li><div><a *ngIf="CurrentPageLandedOn != 'BrowseProducts'" [routerLink]="['/admin/order']">Browse Products</a><a *ngIf="CurrentPageLandedOn == 'BrowseProducts'" class="NavUnderline" [routerLink]="['/admin/order']">Browse Products</a></div></li>
+                  <li><div><a *ngIf="CurrentPageLandedOn == 'SellProducts'" class="NavUnderline" [routerLink]="['/new/product']">Sell Product</a><a *ngIf="CurrentPageLandedOn != 'SellProducts'" [routerLink]="['/new/product']">Sell Product</a></div></li>
+              </ul>
+              <div class="navFontAwesomeContainer">
+                  <fa class="sign-out-button selectedIcon123" name="sign-out" (click)="logOut()"></fa>
+                  <button class="sign-in-button selectedIcon123" type="button" (click)="openScrollableContent(longContent, DoNotRegister)"><fa name="sign-in"></fa></button>
+                  <ng-template #longContent let-modal>
+                      <div class="modal-body logincontainer">
+                          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                          <form *ngIf="RegisterOrNah == false" class="login" (submit)="Create()">
+                              <h1>Login</h1>
+                              <input type="text" name="Email" placeholder="Email" [(ngModel)]="login.email">
+                              <input type="text" name="Password" placeholder="Password" [(ngModel)]="login.password">
+                              <a style="color: #071013;" (click)="openScrollableContent(longContent, ToRegister)"><u>Dont have an account? Register here...</u></a>
+                              <button id="myLoginButton" type="submit" class="btnbtn">Login</button>
+                          </form>
+                          <form *ngIf="RegisterOrNah == true" class="login" (submit)="CreateUser()">
+                              <span>First Name: </span><input type="text" name="FirstName" [(ngModel)]="newUser.FirstName" class="inputField">
+                              <span>Last Name: </span><input type="text" name="LastName" [(ngModel)]="newUser.LastName" class="inputField">
+                              <span>Email: </span><input type="text" name="Email" [(ngModel)]="newUser.Email" class="inputField">
+                              <span>Password: </span><input type="text" name="Password" [(ngModel)]="newUser.Password" class="inputField">
+                              <span>Confirm Password: </span><input type="text" name="ConfirmPassword" [(ngModel)]="newUser.ConfirmPassword" class="inputField">
+                              <button type="submit" class="btnbtn" id="registerButton">Register</button>
+                          </form>
+
+
+                      </div>
+                  </ng-template>
+                  <div [routerLink]="['/checkout']" class="CartNavIcon">
+                      <fa class="selectedIcon123" name="shopping-cart"></fa>
+                      <span *ngIf="id != null && numberItemsInCart > 0">{{ numberItemsInCart }}</span>
+                  </div>
+              </div>
+          </div>
       </div>
-    </div>
   </nav>
 </header>

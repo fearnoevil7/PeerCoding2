@@ -1,46 +1,99 @@
+<html>
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <section style="margin: 0px 0px 0px 250px;">
-        <section style="display: inline-block;">
-            <section style="display: inline-block; margin: 0px 0px 0px -100px;">
-                <h4 style="margin: 0px 0px 16px 61px;">Add To Cart</h4>
-                <form (submit)="addToCart()">
-                    <span class="fields">Product: </span><select type="number" name="productId" [(ngModel)]="productId">
-                        <option *ngFor="let product of products" [value]="product.ProductId">{{ product.Name }}</option>
-                    </select>
-                    <span class="fields">Quantity: </span><input type="number" name="Quantity" [(ngModel)]="quantity1" style="display: block; width: 250px;" />
-                    <button type="submit" class="btn btn-primary" style="width:100px; font-size:10pt; margin: 12px 0px 13px 150px;">Add To Cart</button>
-                </form>
-                <input style="margin: 7px 0px 25px  0px; display: block; width: 250px;" type="text" name="Name" [(ngModel)]="searchText" placeholder="Search For Product" />
-            </section>
-            <section style="display: inline-block; vertical-align:top; margin:0px 0px 0px 88px;">
-                <h4 style="display: inline-block; margin: 180px 0px 0px 80px"><b>Products</b></h4>
-            </section>
-        </section>
-        <div style="margin: 0px 0px 100px 0px;">
-            <div class="productscontainer">
-                <div class="products" *ngFor="let product of products | filter1 : searchText : 'Name'">
-                    <div *ngIf="product.Quantity > 0">
-                        <br />
-                        <div *ngIf="product.ImageUrl">
-                            <img [src]="product.ImageUrl" [alt]="product.ImageUrl" style="width: 100px; height: 100px; margin: 0px 0px 25px 0px" />
-                        </div>
-                        <br />
-                        <p>{{ product.Name }}</p>
-                        <p>({{ product.Quantity }} left)</p>
-                        <p>Vendor: {{product.Vendor.FirstName}} {{product.Vendor.LastName}}</p>
-                    </div>
-                </div>
+
+    
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+
+<app-nav-menu [CurrentPageLandedOn]="CurrentPageUserIsOn"></app-nav-menu>
+<div class="banner">
+    <h2 style="color: #fdbe02;">ETrade</h2>
+    <h2 style="color: #071013;">Inventory</h2>
+</div>
+<div>
+    <div style="display: inline-block;" class="searchOptions">
+        <h4 class="h4-redux">Shop By Categories</h4>
+        <div class="underlineDecoration"></div>
+        <button class="byCategorySearchButton" value="Electronics" appPagination (selectCategory)="OnClickCategoryEmmitter($event)">Electronics</button>
+        <button class="byCategorySearchButton" value="Sports Equipment" appPagination (selectCategory)="OnClickCategoryEmmitter($event)">Sports Equipment</button>
+        <button class="byCategorySearchButton" value="Jewelry" appPagination (selectCategory)="OnClickCategoryEmmitter($event)">Jewelry</button>
+        <button class="byCategorySearchButton" value="Clothing" appPagination (selectCategory)="OnClickCategoryEmmitter($event)">Clothing</button>
+        <button class="byCategorySearchButton" value="Musical Instruments" appPagination (selectCategory)="OnClickCategoryEmmitter($event)">Musical Instrument</button>
+        <div>
+            <h4 class="h4-redux">Shop By Price</h4>
+            <div class="underlineDecoration"></div>
+            <div class="custom-slider-container" id="custom-slider">
+              <ng5-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options" ProductsByPrice (desiredPriceRange)="getDesiredPriceRange($event)"></ng5-slider>
             </div>
         </div>
-    </section>
-        <div class="margin: 0px 0px 25px 125px;">
-            <ul style="display: inline; list-style-type: none; margin: 0px 0px 25px 225px;">
-                <li style="display: inline; margin: 0px 25px 0px 25px;"><a [routerLink]="['/edit']"><u> Edit Profile </u></a> </li>
-                <li style="display: inline; margin: 0px 25px 0px 25px; color: #007bff;"> | </li>
-                <li style="display: inline; margin: 0px 25px 0px 25px; color: #007bff;"><a [routerLink]="['/customers']"><u> Dashboard </u></a> </li>
-                <li style="display: inline; margin: 0px 25px 0px 25px; color: #007bff;"> | </li>
-                <li style="display: inline; margin: 0px 25px 0px 25px; color: #007bff;"><a [routerLink]="['/checkout']"><u>View Cart</u></a></li>
-                <li style="display: inline; margin: 0px 25px 0px 25px; color: #007bff;"> | </li>
-                <li style="display: inline; margin: 0px 25px 0px 25px; color: #007bff;"><a [routerLink]="['/new/product']"><u>Sell Product</u></a></li>
+        <input style="margin: 25px 0px 25px  0px; display: block; width: 250px;" type="text" name="Name" [(ngModel)]="searchText" placeholder="Search For Product" />
+    </div>
+    <div style="display: inline-block;" class="displayProducts">
+        <div class="productscontainer">
+            <div *ngFor="let page of paginatedPages; index as x;">
+                <div *ngIf="currentPage == x">
+                    <ul style="list-style-type: none;">
+                      <li class="productsMiniContainer" *ngFor="let product of page | filter1 : searchText : 'Name'" style="display: inline-block; padding: 7px;">
+                          <div *ngIf="product.Quantity > 0" style="margin: 0px 52px 0px 52px; justify-content: center; align-items: center; text-align: center;">
+                              <br />
+                              <div *ngIf="product.ImageUrl">
+                                  <img [src]="product.ImageUrl" [alt]="product.ImageUrl" style="width: 100px; height: 100px; margin: 0px 0px 25px 0px; border-radius: 7px;" />
+                              </div>
+                              <br />
+                              <br />
+                              <br />
+                              <a style="color: #fdbe02;" [routerLink]="['/app/product/show', product.ProductId]" >{{ product.Name }}</a>
+                              <p>${{product.Price}}</p>
+                              <p>({{ product.Quantity }} left)</p>
+                              <form class="cartForm" (submit)="addToCart(product.ProductId)">
+                                  <input type="hidden" name="productId" [value]="product.ProductId" [(ngModel)]="productId" />
+                                  <input class="fields" type="number" name="Quantity" placeholder="Quantity" [(ngModel)]="quantity1" />
+                                  <button class="btn btn-warning cartButton"><fa name="shopping-cart"></fa></button>
+                              </form>
+                          </div>
+                      </li>
+                    </ul>
+                </div>
+            </div>
+            <ul class="pagination" style="margin: 16px 0px 0px 277px;">
+                <li class="page-item">
+                  <a class="page-link nav-page-link" (click)="pageNavigatorPrevNext(false, 1)" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                      <span class="sr-only">Previous</span>
+                  </a>
+                </li>
+                <li class="paginationNavContainer page-item" *ngFor="let page of paginatedPages; index as x;">
+                    <a *ngIf="currentPage != x" class="page-link nav-page-link" (click)="pageNavigator(x)">{{x + 1}}</a>
+                    <a *ngIf="currentPage == x" style="background-color: #fdbe02; color: #fff; border-radius: 4px;" class="page-link nav-page-link" (click)="pageNavigator(x)">{{x + 1}}</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link nav-page-link" (click)="pageNavigatorPrevNext(true, 1)" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
             </ul>
         </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,30 +1,8 @@
 ﻿<Properties StartupConfiguration="{D19A4481-6847-414E-9311-A76E24B93DF3}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="TheWall/ClientApp/src/app/home/home.component.html">
+  <MonoDevelop.Ide.Workbench ActiveDocument="TheWall/Models/Revi.cs">
     <Files>
-      <File FileName="TheWall/ClientApp/src/app/home/home.component.html" Line="11" Column="21" />
+      <File FileName="TheWall/Models/Revi.cs" Line="11" Column="1" />
     </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State name="__root__">
-          <Node name="TheWall" expanded="True">
-            <Node name="TheWall" expanded="True">
-              <Node name="ClientApp" expanded="True">
-                <Node name="src" expanded="True">
-                  <Node name="app" expanded="True">
-                    <Node name="dashboard" expanded="True" />
-                    <Node name="home" expanded="True">
-                      <Node name="home.component.html" selected="True" />
-                    </Node>
-                  </Node>
-                </Node>
-              </Node>
-              <Node name="Controllers" expanded="True" />
-              <Node name="Models" expanded="True" />
-            </Node>
-          </Node>
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

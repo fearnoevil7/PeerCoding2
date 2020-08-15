@@ -8,10 +8,62 @@
     display: block;
     margin: 0px 0px 25px 0px;
 }
-#button{
-    margin: 0px 0px 0px 97px;
-}
 
 .minicontainer{
     margin: 52px 0px 0px 124px;
 }
+
+.EditBanner {
+  min-height: calc(100vh - 70px);
+  background: url("../../assets/pageBackground/editbcg.jpg");
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  opacity: 0.7;
+  text-align: center;
+  padding: 124px 0px 52px 0px;
+}
+
+.ProfileEditForm {
+  background-color: #f1cc97;
+  width: 400px;
+  padding: 40px;
+  text-align: center;
+  border-top-left-radius: 100px;
+  border-bottom-right-radius: 100px;
+  margin: 25px 0px 0px 456px;
+}
+
+.formfield1 {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 10px;
+  width: 250px;
+  background: none;
+  border: 2px solid black;
+  border-radius: 15px;
+  transition: 0.8s;
+  text-align: center;
+}
+
+.formfield1:focus {
+  border-left: 40px solid black;
+}
+
+
+.submitBtn {
+  background-color: #b18a5c;
+  border: #b18a5c;
+  color: #fff;
+  padding: 7px 7px 7px 7px;
+  border-radius: 5px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+  .submitBtn:hover {
+    background-color: #625959;
+    border: #625959;
+    color: #f6f4f0;
+  }

@@ -63,10 +63,44 @@ export class HttpService {
     return this._http.get("order/addToCart/" + productid + "/" + quantity + "/" + customerid);
   }
 
-  editShoppingCart(key, userid, productid, quantity) {
+  DeleteItemFromCart(key, userid, productid, quantity) {
     console.log("http remove item from cart", key, userid);
-    return this._http.get("order/editCart/" + userid + "/" + key + "/" + productid + "/" + quantity );
+    return this._http.get("order/editCart/delete/" + userid + "/" + key + "/" + productid + "/" + quantity );
 
+  }
+
+  EditItemFromCart(key: number, userid: number, productid: number, incrementOrNah: boolean, shoppingcart) {
+    console.log("testing testing testing", key, userid);
+    return this._http.post("order/editCart/" + userid + "/" + key + "/" + productid + "/" + incrementOrNah, shoppingcart);
+
+  }
+
+  getProductByCategory(category:string) {
+    console.log("HttpServiceCategorytest", category);
+
+    return this._http.get("product/products/" + category);
+  }
+
+  updateProduct(productid: number, product: object) {
+    return this._http.post("product/update/" + productid, product);
+  }
+
+  getProduct(productid: number) {
+    return this._http.get("product/show/" + productid);
+  }
+
+  getProductsByPrice(maxValue: number, minValue: number) {
+    console.log("httpService get products by price max value", maxValue);
+    console.log("httpService get products by price min value", minValue);
+    return this._http.get("product/pricerange/" + minValue + "/" + maxValue);
+  }
+
+  shipItems(productid: number, quantity: number) {
+    return this._http.get("product/quantity/" + productid + "/" + quantity);
+  }
+
+  PopularProducts() {
+    return this._http.get("product/popularity");
   }
 
 }

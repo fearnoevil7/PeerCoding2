@@ -1,0 +1,58 @@
+<app-nav-menu></app-nav-menu>
+<div class="EditBanner">
+    <h2 style="color: #f1cc97;">ETrade</h2>
+    <form class="ProfileEditForm" (submit)="sendProductToUpdate()">
+        <h2 style="color: #071013;">Edit Your Product</h2>
+        <span>Name: </span><input class="formfield" type="text" name="name" [placeholder]="product_name" [(ngModel)]="productToUpdate.name" />
+        <span>Quantity: </span><input class="formfield" type="number" name="quantity" [placeholder]="product_quantity" [(ngModel)]="productToUpdate.quantity" />
+        <span>Description: </span><textarea class="formfield" type="text" name="description" cols="25" rows="2" [placeholder]="product_description" [(ngModel)]="productToUpdate.description"></textarea>
+
+        <span>Category: </span><div *ngIf="product_category == 'Clothing'">
+            <select class="formfield" type="text" name="Category" [(ngModel)]="productToUpdate.category">
+                <option selected="selected">Clothing</option>
+                <option>Jewelry</option>
+                <option>Sports Equipment</option>
+                <option>Electronics</option>
+                <option>Musical Instruments</option>
+            </select>
+        </div>
+        <div *ngIf="product_category == 'Jewelry'">
+            <select class="formfield" type="text" name="Category" [(ngModel)]="productToUpdate.category">
+                <option>Clothing</option>
+                <option selected="selected">Jewelry</option>
+                <option>Sports Equipment</option>
+                <option>Electronics</option>
+                <option>Musical Instruments</option>
+            </select>
+        </div>
+        <div *ngIf="product_category == 'Sports Equipment'">
+            <select class="formfield" type="text" name="Category" [(ngModel)]="productToUpdate.category">
+                <option>Clothing</option>
+                <option>Jewelry</option>
+                <option selected="selected">Sports Equipment</option>
+                <option>Electronics</option>
+                <option>Musical Instruments</option>
+            </select>
+        </div>
+        <div *ngIf="product_category == 'Electronics'">
+            <select class="formfield" type="text" name="Category" [(ngModel)]="productToUpdate.category">
+                <option>Clothing</option>
+                <option>Jewelry</option>
+                <option>Sports Equipment</option>
+                <option selected="selected">Electronics</option>
+                <option>Musical Instruments</option>
+            </select>
+        </div>
+        <div *ngIf="product_category == 'Musical Instruments'">
+            <select class="formfield" type="text" name="Category" [(ngModel)]="productToUpdate.category">
+                <option>Clothing</option>
+                <option>Jewelry</option>
+                <option>Sports Equipment</option>
+                <option>Electronics</option>
+                <option selected="selected">Musical Instruments</option>
+            </select>
+        </div>
+        <span>Price: </span><input type="number" name="price" [placeholder]="product_price" [(ngModel)]="productToUpdate.price" class="formfield" />
+        <button class="submitBtn" type="submit" id="button">Update Product</button>
+    </form>
+</div>

@@ -27,6 +27,10 @@ namespace TheWall.Models
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
         public string ImageUrl { get; set; }
+        public int AmountSold { get; set; }
+        [Required]
+        public string Category { get; set; }
+        public float Price { get; set; }
 
         //public class Products : IEnumerable
         //{

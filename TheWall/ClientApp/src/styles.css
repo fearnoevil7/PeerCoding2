@@ -2,7 +2,11 @@
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+  color: #fdbe02;
+}
+
+html body {
+  font-family: 'Mali', cursive;
 }
 
 code {
@@ -13,4 +17,380 @@ code {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
+}
+
+
+.ng5-slider .ng5-slider-selection {
+  background: #fdbe02 !important;
+}
+
+.ng5-slider .ng5-slider-pointer {
+  background-color: #fdbe02 !important;
+}
+
+:root {
+  --mainYellow: #fdbe02;
+  --mainWhite: #fff;
+  --mainBlack: #071013;
+  --TransGrey: rgba(0, 0, 0, 0.1);
+}
+
+a {
+  color: #071013;
+}
+
+
+.container {
+  vertical-align: top;
+  display: inline-block;
+  width: 300px;
+  border: solid black 3px;
+}
+
+.HomeBanner {
+  min-height: calc(100vh - 70px);
+  background: url("assets/pageBackground/bannerBcg.jpeg");
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  opacity: 0.7;
+  text-align: left;
+  padding: 160px 0px 0px 0px;
+}
+
+.HomeBanner2 {
+  min-height: calc(100vh - 70px);
+  background: url("assets/pageBackground/home-filler.jpeg");
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  text-align: center;
+  padding: 160px 0px 0px 0px;
+}
+
+.productsMiniContainer {
+  display: inline-block;
+  position: relative;
+  background: rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  border-radius: 7px;
+  transform: scale(0.8);
+}
+
+.cartForm {
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateX(110%);
+  transition: all 1s ease-in-out;
+}
+
+.cartForm2 {
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateX(150%);
+  transition: all 1s ease-in-out;
+}
+
+.cartButton {
+  vertical-align: top;
+}
+
+.fields {
+  width: 100px;
+  height: 38px;
+  border-radius: 7px;
+}
+
+.productsMiniContainer:hover .cartForm {
+  transform: translateX(-25%);
+}
+
+.productsMiniContainer:hover .cartForm2 {
+  transform: translateX(-25%);
+}
+
+
+.productscontainer {
+  margin: 106px 0px 0px 0px;
+  width: 925px;
+}
+
+.byCategorySearchButton {
+  display: block;
+  background-color: transparent;
+  border: none;
+}
+
+  .byCategorySearchButton:hover {
+    color: #7f7f7f;
+  }
+
+.searchOptions {
+  display: inline-block;
+  vertical-align: top;
+  margin: 0px 0px 0px 34px;
+}
+
+.displayProducts {
+  display: inline-block;
+  margin: 0px 0px 0px 52px;
+}
+
+.paginationNavContainer {
+  display: inline-block;
+}
+
+.nav-page-link {
+  color: #071013;
+  border-radius: 4px;
+}
+
+
+  .nav-page-link:hover {
+    background-color: #fdbe02;
+    color: #fff;
+  }
+
+.nav-page-link2 {
+  color: #071013;
+}
+
+  .nav-page-link2:hover {
+    color: #fff;
+  }
+
+
+.h4-redux {
+  margin: 25px 0px 7px 0px;
+}
+
+.underlineDecoration {
+  height: 0.2rem;
+  width: 5rem;
+  background: #fdbe02;
+  margin: 0px 0px 25px 0px;
+}
+
+
+.navBar {
+  margin: 0px 0px 25px 0px;
+}
+
+  .navBar ul {
+    display: inline;
+    list-style-type: none;
+    margin: 0px 0px 25px 160px;
+  }
+
+    .navBar ul li div {
+      display: inline-block;
+    }
+
+    .navBar ul li {
+      display: inline;
+      margin: 0px 25px 0px 25px;
+    }
+
+      .navBar ul li a {
+        color: #071013;
+        text-decoration: none;
+        font-size: 18pt;
+      }
+
+        .navBar ul li a:hover {
+          color: #55637d !important;
+        }
+
+
+
+.CartNavIcon {
+  display: inline-grid;
+  grid-template-columns: repeat(5, 1fr);
+  position: absolute;
+  margin: 0px 0px 0px 16px;
+}
+
+  .CartNavIcon span {
+    border-radius: 50%;
+    background-color: #fdbe02;
+    color: #fff;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    bottom: 40% !important;
+    left: -95%;
+  }
+
+  .CartNavIcon fa {
+    position: relative;
+    top: 7%;
+    right: -97%;
+  }
+
+.navFontAwesomeContainer {
+  display: inline-block;
+  margin: 0px 0px 0px 52px;
+}
+
+.sign-in-button {
+  margin: 0px 0px 0px 16px;
+  background-color: transparent;
+  border: none;
+}
+
+.sign-out-button i {
+    transform: rotate(180deg);
+}
+
+
+.emblemIcon {
+  display: inline-block;
+  color: #fdbe02;
+}
+
+.emblemIconMargin {
+  margin: 0px 16px 0px 16px;
+}
+
+.emblemIconMargin2 {
+  margin: 0px 7px 0px 7px;
+}
+
+.HomePageFontAwesomeIcon {
+  background-color: #7f7f7f;
+  border-radius: 50%;
+  text-align: center;
+  height: 70px;
+  padding: 21px;
+  width: 61px;
+  margin: 0px 0px 16px 81px;
+  color: #fdbe02;
+}
+
+.HomePageFontAwesomeIcon fa i {
+  transform: scale(2);
+}
+
+
+.selectedIcon123:hover {
+  color: #fdbe02;
+}
+
+
+
+
+
+.logincontainer {
+  background: url(assets/pageBackground/loginbcg.jpg);
+  height: 520px;
+}
+
+.minicontainer {
+  margin: 70px 0px 0px 88px;
+}
+
+.loginh3 {
+  margin: 0px 0px 25px 0px;
+}
+
+#loginButton {
+  margin: 25px 0px 0px 139px;
+}
+
+.fields123 {
+  display: block;
+  margin: 0px 0px 25px 0px;
+}
+
+#registerButton {
+  margin: 0px 0px 0px 150px;
+}
+
+
+.login {
+  background-color: #e7dcd1;
+  width: 400px;
+  padding: 40px;
+  text-align: center;
+  border-top-left-radius: 100px;
+  border-bottom-right-radius: 100px;
+  margin: 79px 0px 79px 34px;
+}
+
+.login input[type="text"], .login input[type="password"] {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 10px;
+    width: 250px;
+    background: none;
+    border: 2px solid black;
+    border-radius: 15px;
+    transition: 0.8s;
+
+}
+
+.login input[type="text"]:focus, .login input[type="password"]:focus {
+    border-left: 40px solid black;
+}
+
+.login input[type="submit"] {
+    background: none;
+    border: 2px solid black;
+    padding: 10px 10px;
+    width: 100px;
+    margin: 10px 10px;
+    border-radius: 15px;
+    transition: 0.6s;
+}
+
+.login input[type="submit"]:hover {
+    background-color: black;
+    color: orange;
+}
+
+.login > h1 {
+    margin: 20px 20px;
+}
+
+
+  .inputField {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 10px;
+    width: 250px;
+    background: none;
+    border: 2px solid black;
+    border-radius: 15px;
+    transition: 0.8s;
+    text-align: center;
+  }
+.inputField:focus {
+  border-left: 40px solid black;
+}
+
+.btnbtn {
+  background-color: #906545;
+  border: #906545;
+  text-align: center;
+  vertical-align: middle;
+  padding: 7px 7px 7px 7px;
+  border-radius: 5px;
+  width: 70px;
+  height: 43px;
+  margin: 25px 0px 0px 0px;
+}
+
+.btnbtn:hover {
+   opacity: 0.5;
+}
+
+.NavUnderline {
+  border-bottom: solid 4px #fdbe02;
+  padding: 0px 0px 7px 0px;
 }

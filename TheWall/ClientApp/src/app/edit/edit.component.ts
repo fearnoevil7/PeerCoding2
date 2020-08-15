@@ -16,6 +16,8 @@ export class EditComponent implements OnInit {
   last_Name: string;
   _email: string;
 
+  CurrentPageUserIsOn = "EditProfile";
+
   constructor(
     private _httpService: HttpService,
     private _router: ActivatedRoute,

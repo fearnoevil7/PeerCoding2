@@ -1,3 +1,14 @@
+:root{
+    --mainYellow: #fdbe02;
+    --mainWhite: #fff;
+    --mainBlack: #071013;
+    --TransGrey: rgba(0, 0 , 0, 0.1);
+}
+
+a {
+  color: #071013;
+}
+
 
 .container {
   vertical-align: top;
@@ -6,17 +17,198 @@
   border: solid black 3px;
 }
 
-.products {
+.banner{
+    min-height: calc(100vh - 70px);
+    background: url("../../assets/pageBackground/productsBcg.jpeg");
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    opacity: 0.7;
+    text-align: center;
+    padding: 160px 0px 0px 0px;
+}
+
+.productsMiniContainer {
   display: inline-block;
-  margin: 25px 0px 0px 52px;
-  width: 300px;
-  font-size: 10pt;
+  position: relative;
+  background: rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  border-radius: 7px;
+  transform: scale(0.8);
+}
+
+.cartForm {
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateX(110%);
+    transition: all 1s ease-in-out;
+
+}
+
+.cartForm2 {
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateX(150%);
+  transition: all 1s ease-in-out;
+}
+
+.cartButton{
+    vertical-align: top;
 }
 
 .fields {
-  display: block;
+  width: 100px;
+  height: 38px;
+  border-radius: 7px;
+  border: none;
 }
 
-.productscontainer {
-    margin: 0px 160px 0px 0px;
+.productsMiniContainer:hover .cartForm{
+    transform: translateX(-25%);
 }
+
+.productsMiniContainer:hover .cartForm2 {
+  transform: translateX(-25%);
+}
+
+
+.productscontainer {
+    margin: 106px 0px 0px 0px;
+    width: 925px;
+}
+
+.byCategorySearchButton{
+    display: block;
+    background-color: transparent;
+    border: none;
+}
+  .byCategorySearchButton:hover {
+    color: #7f7f7f;
+  }
+
+.searchOptions{
+    display: inline-block;
+    vertical-align: top;
+    margin: 0px 0px 0px 34px;
+}
+
+.displayProducts {
+  display: inline-block;
+  margin: 0px 0px 0px 52px;
+}
+
+.paginationNavContainer {
+  display: inline-block;
+}
+
+.nav-page-link {
+  color: #071013;
+  border-radius: 4px;
+}
+
+
+.nav-page-link:hover {
+  background-color: #fdbe02;
+  color: #fff;
+}
+
+.nav-page-link2 {
+  color: #071013;
+}
+
+.nav-page-link2:hover{
+    color: #fff;
+}
+
+
+
+
+
+
+.h4-redux {
+  margin: 25px 0px 7px 0px;
+}
+
+.underlineDecoration {
+  height: 0.2rem;
+  width: 5rem;
+  background: #fdbe02;
+  margin: 0px 0px 25px 0px;
+}
+
+
+.navBar {
+  margin: 0px 0px 25px 70px;
+}
+
+  .navBar ul {
+    display: inline;
+    list-style-type: none;
+    margin: 0px 0px 25px 160px;
+  }
+
+    .navBar ul li div {
+      
+      display: inline-block;
+      
+    }
+
+    .navBar ul li {
+      display: inline;
+      margin: 0px 25px 0px 25px;
+    }
+
+      .navBar ul li a {
+        text-decoration: none;
+        font-size: 18pt;
+        
+      }
+
+        .navBar ul li a:hover {
+          color: #55637d !important;
+        }
+
+
+
+.CartNavIcon{
+    display: inline-grid;
+    grid-template-columns: repeat(5, 1fr);
+    position: absolute;
+    margin: 4px 0px 0px 160px;
+}
+
+  .CartNavIcon span {
+    border-radius: 50%;
+    background-color: #fdbe02;
+    color: #fff;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    bottom: 40% !important;
+    left: -95%;
+  }
+
+  .CartNavIcon fa {
+      position: relative;
+      top: 7%;
+      right: -97%;
+  }
+
+.emblemIcon {
+  display: inline-block;
+  color: #fdbe02;
+}
+
+.emblemIconMargin {
+  margin: 0px 16px 0px 16px;
+}
+
+.emblemIconMargin2 {
+  margin: 0px 7px 0px 7px;
+}
+

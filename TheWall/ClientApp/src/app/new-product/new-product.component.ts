@@ -20,6 +20,7 @@ export class NewProductComponent implements OnInit {
   @Output() public onUploadFinished = new EventEmitter();
   imageurl: string;
   searchText: string;
+  CurrentPageUserIsOn = "SellProducts";
 
   constructor(
     private _httpService: HttpService,
@@ -32,7 +33,7 @@ export class NewProductComponent implements OnInit {
   ngOnInit() {
     this.isUserAuthenticated();
     this.getProductsFromService();
-    this.newProduct = { Name: "", Quantity: null, Description: "", UserId: this.userid, ImageUrl: null };
+    this.newProduct = { Name: "", Quantity: null, Description: "", UserId: this.userid, ImageUrl: null, Category: null };
   }
 
   isUserAuthenticated() {
@@ -60,7 +61,7 @@ export class NewProductComponent implements OnInit {
       console.log("Product successfuly created!", data);
       this.newProduct = { Name: "", Quantity: null, Description: "", UserId: this.userid, ImageUrl: null };
       window.localStorage.removeItem("ImagePath");
-      this._route.navigate(["products"]);
+      this._route.navigate(["admin/order"]);
     })
   }
 
@@ -99,7 +100,7 @@ export class NewProductComponent implements OnInit {
       //if (event['body']['path'] != null) {
       //  console.log("Test@@@@@@@@!!!!!!!", event['body']['path']);
       //}
-
+      return;
     });
   }
 
